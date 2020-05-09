@@ -5,7 +5,7 @@ import modelo.usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Principal extends javax.swing.JFrame { //Que jode el maistro de instalaciones
+public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
