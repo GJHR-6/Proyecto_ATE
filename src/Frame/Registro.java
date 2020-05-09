@@ -30,7 +30,7 @@ public class Registro extends javax.swing.JFrame {
     public void cerrar() {
         try {
             con.close();
-
+            //no se cierran cosas que ya se cerrraron.
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage().toString());
         }

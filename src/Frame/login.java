@@ -267,7 +267,7 @@ public class login extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // 
-        cerrar();
+        //cerrar();
     }//GEN-LAST:event_formWindowClosed
 
     /**
