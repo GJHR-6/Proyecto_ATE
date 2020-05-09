@@ -8,6 +8,15 @@ public class usuario {
     public String password;
     public boolean esadmin;
     public int id_carrera;
+    public carrera Carrera;
+
+    public carrera getCarrera() {
+        return Carrera;
+    }
+
+    public void setCarrera(carrera Carrera) {
+        this.Carrera = Carrera;
+    }
 
     public int getId_user() {
         return id_user;
@@ -40,6 +49,7 @@ public class usuario {
     public void setEsadmin(boolean esadmin) {
         this.esadmin = esadmin;
     }
+    
     public int getId_carrera() {
         return id_carrera;
     }
@@ -49,6 +59,5 @@ public class usuario {
     }
     public usuario() {
     }
-    
- 
+   
 }
