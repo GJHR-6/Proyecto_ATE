@@ -10,7 +10,9 @@ package modelo;
  * @author guill
  */
 public class carrera {
+
     public int id_carrera;
+    public String nomb_carrera;
 
     public int getId_carrera() {
         return id_carrera;
@@ -27,5 +29,9 @@ public class carrera {
     public void setNomb_carrera(String nomb_carrera) {
         this.nomb_carrera = nomb_carrera;
     }
-    public String nomb_carrera;
+
+    @Override
+    public String toString() {
+        return this.nomb_carrera;
+    }
 }

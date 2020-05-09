@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import modelo.carrera;
 
 public class Registro extends javax.swing.JFrame {
 
@@ -76,7 +77,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -262,16 +263,20 @@ public class Registro extends javax.swing.JFrame {
             this.dispose();
         }
         //REGISTRARSE
-        String usu = this.jTextField1.getText();
-        String contra = (this.jPasswordField1.getText().toString());
+//        String usu = this.jTextField1.getText();
+//        String contra = (this.);
         String confir = this.jPasswordField2.getText().toString();
-        String carre = (this.jComboBox1.getSelectedItem().toString());
-        int carrer = (this.jComboBox1.getSelectedIndex() + 1);
+        usuario UserNuevo = new usuario();
+        
+        UserNuevo.setCarrera((carrera)jComboBox1.getSelectedItem());
+        UserNuevo.setPassword(jPasswordField1.getText());
+        UserNuevo.setNomb_user(jTextField1.getText());
+        
         buscaruser(jTextField1.getText());
         if (u.getNomb_user() == null) {
-            if (contra.equals(confir)) {
+            if (UserNuevo.getPassword().equals(confir)) {
                 try {
-                    PreparedStatement st = con.prepareStatement("Insert into usuario(nomb_user,password,nomb_carrera,esadmin,id_carrera) values ('" + usu + "','" + contra + "','" + carre + "','" + false + "'," + carrer + ")");
+                    PreparedStatement st = con.prepareStatement("Insert into usuario(nomb_user,password,nomb_carrera,esadmin,id_carrera) values ('" + UserNuevo.getNomb_user() + "','" + UserNuevo.getPassword() + "','" + UserNuevo.getCarrera().getNomb_carrera() + "','" + false + "'," + UserNuevo.getCarrera().getId_carrera() + ")");
                     st.execute();
                     JOptionPane.showMessageDialog(null, "Registro completado");
                      login form = new login();
@@ -363,10 +368,14 @@ public class Registro extends javax.swing.JFrame {
 
     public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
         try {
-            PreparedStatement at = con.prepareStatement("Select nomb_carrera from carrera");
+            PreparedStatement at = con.prepareStatement("Select id_carrera, nomb_carrera from carrera");
             result = at.executeQuery();
+            carrera cr;
             while (result.next()) {
-                jComboBox1.addItem(result.getString("nomb_carrera"));
+                cr = new carrera();
+                cr.setId_carrera(result.getInt("id_carrera"));
+                cr.setNomb_carrera(result.getString("nomb_carrera"));
+                jComboBox1.addItem(cr);
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
@@ -381,7 +390,7 @@ group by departamento
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<carrera> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
