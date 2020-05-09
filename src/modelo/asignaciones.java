@@ -17,7 +17,7 @@ public class asignaciones {
     public String desc_asig;
     public String importancia;
     public double puntaje;
-    public Date fecha_entrega;
+    public String fecha_entrega;
     public double notaF;
     public int id_usuario;
 
@@ -61,11 +61,11 @@ public class asignaciones {
         this.puntaje = puntaje;
     }
 
-    public Date getFecha_entrega() {
+    public String getFecha_entrega() {
         return fecha_entrega;
     }
 
-    public void setFecha_entrega(Date fecha_entrega) {
+    public void setFecha_entrega(String fecha_entrega) {
         this.fecha_entrega = fecha_entrega;
     }
 

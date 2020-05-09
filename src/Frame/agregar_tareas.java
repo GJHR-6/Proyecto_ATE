@@ -2,15 +2,12 @@ package Frame;
 
 import modelo.usuario;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
+import modelo.asignaciones;
 //import javafx.scene.paint.Color;
 
 public class agregar_tareas extends javax.swing.JFrame {
@@ -270,16 +267,21 @@ public class agregar_tareas extends javax.swing.JFrame {
         this.dispose(); //para el boton cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        asignaciones tarea= new asignaciones();
         ResultSet resul = null;
 
-        String asign = (this.jComboBox2.getSelectedItem().toString());
-        String descrip = this.jTextField1.getText();
-        String importa = (this.jComboBox1.getSelectedItem().toString());
-        double valor = Double.valueOf(jSpinner1.getValue().toString());
+//        String asign = (this.jComboBox2.getSelectedItem().toString());
+//        String descrip = this.jTextField1.getText();
+//        String importa = (this.jComboBox1.getSelectedItem().toString());
+//        double valor = Double.valueOf(jSpinner1.getValue().toString());
+        
         int mes = (this.jComboBox3.getSelectedIndex() + 1);
         int dia = (this.jComboBox4.getSelectedIndex() + 1);
-
-        String fecha = mes + "/" + dia + "/" + año;
+        tarea.setNomb_asig((String)jComboBox2.getSelectedItem());
+        tarea.setDesc_asig(jTextField1.getText());
+        tarea.setImportancia((String)jComboBox1.getSelectedItem());
+        tarea.setPuntaje(Double.valueOf(jSpinner1.getValue().toString()));
+                  tarea.setFecha_entrega(dia + "/" + mes + "/" + año); 
         switch (accion) {
 
             case 1:
@@ -287,11 +289,11 @@ public class agregar_tareas extends javax.swing.JFrame {
 
                 try {
                     PreparedStatement st = internal.con.prepareStatement("Insert into asignaciones(nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,id_usuario) values (?,?,?,?,?,?)");
-                    st.setString(1, asign);
-                    st.setString(2, descrip);
-                    st.setString(3, importa);
-                    st.setDouble(4, valor);
-                    st.setString(5, fecha);
+                    st.setString(1, tarea.getNomb_asig());
+                    st.setString(2, tarea.getDesc_asig());
+                    st.setString(3, tarea.getImportancia());
+                    st.setDouble(4, tarea.getPuntaje());
+                    st.setString(5, tarea.getFecha_entrega());
                     st.setString(6, Integer.toString(user.getId_user()));
                     st.execute();
 
@@ -306,7 +308,7 @@ public class agregar_tareas extends javax.swing.JFrame {
                 modificar();
 
                 try {
-                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + asign + "',desc_asig='" + descrip + "',importancia='" + importa + "',puntaje=" + valor + ",fecha_entrega='" + fecha + "' where asig_id=" + pos + "");
+                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + tarea.getNomb_asig() + "',desc_asig='" + tarea.getDesc_asig() + "',importancia='" + tarea.getImportancia() + "',puntaje=" + tarea.getPuntaje() + ",fecha_entrega='" + tarea.getFecha_entrega() + "' where asig_id=" + pos + "");
 
                     st.execute();
 
