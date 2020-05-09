@@ -1,0 +1,21 @@
+Fecha: 2/5/2020
+-Se agrego frame de registro
+-Se agrego frame para agregrar clases del periodo y nueva carrera
+-Modificacion al frame de administrar perfiles, administrador
+-Modificacion de funcion de botones en tareas, permanecen activos, pero no hacen funcion alguna hasta que se entra en 
+contacto con la tabla.
+-Validacion de usuario/admin conectado con la db.
+
+fecha 3/5/2020
+-se agregaron las clases desde la bd al combobox de la ventana "agg_asignatura_periodo" para que el usuario pueda seleccionar 
+la clase y luego esas clases se guardan en el jtable de internal_man_user2 y se guaran en la tabla de la base de datos llamada "clases_periodo"
+-se creó una nueva tabla en la base de datos llamada "clases_periodo" donde se guardan las clases que el usuario seleccionó en la parte de agregar asignatura
+(en internal_man_user2)
+-se llenó el combobox de agregar_tareas con las clases que el usuarió ingreso en "agregar asignaturas" (interna_man_user2)
+
+fecha 7/5/2020
+-Creación de todas las clases para la base de datos.
+-Reparación de bug en metodo getid_carrera() de la clase 'clases'.
+-Relacionar todas las tablas en la base de datos.
+-En la tabla de opción de tareas, ahora ya se muestran las tareas por usuario, vinculado con la base de datos al momento de agregar.
+-Incorporación del orgranigrama de clases v1, al iniciar sesión como usuario.
