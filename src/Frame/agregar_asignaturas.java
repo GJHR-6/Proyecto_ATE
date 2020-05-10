@@ -83,6 +83,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jLabel3.setText("Asignatura:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
+        jTextField2.setToolTipText("Nombre de la asignatura");
         jTextField2.setBorder(null);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +93,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 180, 30));
 
         jComboBox1.setForeground(new java.awt.Color(51, 51, 51));
+        jComboBox1.setToolTipText("Seleccionar usuario");
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -149,8 +151,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         jComboBox2.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0" }));
-        jComboBox2.setToolTipText("");
+        jComboBox2.setToolTipText("seleccionar requisito");
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox2ItemStateChanged(evt);
@@ -169,7 +170,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 180, 30));
 
         jComboBox3.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0" }));
+        jComboBox3.setToolTipText("seleccionar requisito");
         jComboBox3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox3ItemStateChanged(evt);
@@ -188,7 +189,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 180, 30));
 
         jComboBox4.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0" }));
+        jComboBox4.setToolTipText("seleccionar requisito");
         jComboBox4.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox4ItemStateChanged(evt);
@@ -233,7 +234,8 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-
+    this.jComboBox1.removeAllItems();
+    llenar_combo_carrera();
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -250,6 +252,8 @@ public class agregar_asignaturas extends javax.swing.JFrame {
 
     private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
         // TODO add your handling code here:
+    this.jComboBox2.removeAllItems();
+    llenar_combo_req1();
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -262,6 +266,8 @@ public class agregar_asignaturas extends javax.swing.JFrame {
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
         // TODO add your handling code here:
+     this.jComboBox3.removeAllItems();
+     llenar_combo_req2();
     }//GEN-LAST:event_jComboBox3MouseClicked
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
@@ -273,7 +279,9 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ItemStateChanged
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
+    this.jComboBox4.removeAllItems();
+    llenar_combo_req3();
     }//GEN-LAST:event_jComboBox4MouseClicked
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -298,6 +306,12 @@ public class agregar_asignaturas extends javax.swing.JFrame {
             case 1:
                 actualizar();
                  {
+                     if(this.jTextField2.getText().equals("") || this.jComboBox1.getItemAt(0).equals("Seleccione clase") || this.jTextField2.getText()=="" || this.jComboBox2.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox3.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox4.getItemAt(0).equals("Seleccione requisito") )
+                      {
+                       JOptionPane.showMessageDialog(null, "Debe llenar los datos");
+                      }
+                     else
+                     {
                     try {
                         PreparedStatement st = internal.con.prepareStatement("Insert into clases(nomb_clase,requisito,requisito2,requisito3,id_carrera) values (?,?,?,?,?)");
                         //st.setInt(0,codi);
@@ -315,11 +329,18 @@ public class agregar_asignaturas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
                     }
                 }
+                 }
                 break;
             case 2:
                 modificar();
                  {
                      int cod=(this.jComboBox1.getSelectedIndex()+1);
+                      if(this.jTextField2.getText()=="" || this.jComboBox1.getItemAt(0).equals("Seleccione clase") || this.jTextField2.getText()=="" || this.jComboBox2.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox3.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox4.getItemAt(0).equals("Seleccione requisito") )
+                      {
+                       JOptionPane.showMessageDialog(null, "Debe llenar los datos");
+                      }
+                      else
+                      {
                     try {
                         PreparedStatement st = internal.con.prepareStatement("update clases set nomb_clase='" + asig + "',requisito=" + req1 + ",requisito2=" + req2 + ",requisito3=" + req3 + ",id_carrera="+cod+" where id_clase=" + pos + "");
                         
@@ -331,16 +352,21 @@ public class agregar_asignaturas extends javax.swing.JFrame {
                     } catch (Exception x) {
                         JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
                     }
+                      }
                     break;
                 }
     }//GEN-LAST:event_jButton1ActionPerformed
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // 
-        llenar_combo_carrera();
+        this.jComboBox1.addItem("Seleccione clase");
+        this.jComboBox2.addItem("Seleccione requisito");
+        this.jComboBox3.addItem("Seleccione requisito");
+        this.jComboBox4.addItem("Seleccione requisito");
+      /*  llenar_combo_carrera();
         llenar_combo_req1();
         llenar_combo_req2();
-        llenar_combo_req3();
+        llenar_combo_req3();*/
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {

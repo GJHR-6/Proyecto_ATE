@@ -149,13 +149,6 @@ usuario user;
                     PreparedStatement st = con.prepareStatement("update usuario set password='" + nueva + "' where nomb_user='" + user.getNomb_user()+ "'");
                     st.execute();
                     JOptionPane.showMessageDialog(null, "Contraseña cambiada con éxito");
-                    /* form2 = new internal_man_user2(user);
-                       form2.setLocation(270, 0);
-                       this.dispose();
-                       dpst.add(form2);                //añade el nuevo form2 al JDesktopPane
-                       form2.setVisible(true);
-                     //jLabel1.setBackground(new java.awt.Color(217, 217, 217));
-                       jLabel2.setBackground(new java.awt.Color(255, 255, 255));*/
                      this.jTextField2.setText("");
                      this.jTextField1.setText("");
                      this.jTextField3.setText("");
