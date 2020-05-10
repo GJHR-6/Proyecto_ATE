@@ -267,21 +267,20 @@ public class agregar_tareas extends javax.swing.JFrame {
         this.dispose(); //para el boton cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        asignaciones tarea= new asignaciones();
+        asignaciones tarea = new asignaciones();
         ResultSet resul = null;
 
 //        String asign = (this.jComboBox2.getSelectedItem().toString());
 //        String descrip = this.jTextField1.getText();
 //        String importa = (this.jComboBox1.getSelectedItem().toString());
 //        double valor = Double.valueOf(jSpinner1.getValue().toString());
-        
         int mes = (this.jComboBox3.getSelectedIndex() + 1);
         int dia = (this.jComboBox4.getSelectedIndex() + 1);
-        tarea.setNomb_asig((String)jComboBox2.getSelectedItem());
+        tarea.setNomb_asig((String) jComboBox2.getSelectedItem());
         tarea.setDesc_asig(jTextField1.getText());
-        tarea.setImportancia((String)jComboBox1.getSelectedItem());
+        tarea.setImportancia((String) jComboBox1.getSelectedItem());
         tarea.setPuntaje(Double.valueOf(jSpinner1.getValue().toString()));
-                  tarea.setFecha_entrega(dia + "/" + mes + "/" + año); 
+        tarea.setFecha_entrega(dia + "/" + mes + "/" + año);
         switch (accion) {
 
             case 1:
@@ -356,7 +355,7 @@ public class agregar_tareas extends javax.swing.JFrame {
 
     public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos en la parte de clases_periodo las cuales insertamos en agg_asignatura_user2
         try {
-            PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='"+user.getId_user()+"'");
+            PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
             result = at.executeQuery();
             //internal.llenarTabla();
             while (result.next()) //llena la bd con la tabla del result
