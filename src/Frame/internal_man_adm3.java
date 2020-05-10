@@ -336,9 +336,10 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
         //llenar_combo();
         this.jComboBox1.addItem("Seleccione usuario");
     }//GEN-LAST:event_formInternalFrameOpened
-String us = this.jComboBox1.getSelectedItem().toString();
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //Botón eliminar
+        String us = this.jComboBox1.getSelectedItem().toString();
         if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
         {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
@@ -346,9 +347,9 @@ String us = this.jComboBox1.getSelectedItem().toString();
         else
         {
          
-        u.setNomb_user(this.jComboBox1.getSelectedItem().toString());
+        //u.setNomb_user(this.jComboBox1.getSelectedItem().toString());
         try {
-             PreparedStatement st = con.prepareStatement("delete from usuario, clases_periodo where nomb_user='" + us + "'");
+             PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
           // PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_usuario='" + u.getId_user() + "' ");
             //st = con.prepareStatement("delete from clases_periodo where id_usuario='" +u.getId_user() + "'");
             st.execute();
