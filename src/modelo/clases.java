@@ -16,7 +16,8 @@ public class clases {
     public int requisito2;
     public int requisito3;
     public int id_carrera;
-
+    
+    
     public int getId_clase() {
         return id_clase;
     }
@@ -63,5 +64,8 @@ public class clases {
 
     public void setId_carrera(int id_carrera) {
         this.id_carrera = id_carrera;
+    }
+    public clases(){
+        
     }
 }

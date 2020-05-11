@@ -13,9 +13,9 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
     }
-//fkfkf
-    usuario user;
 
+    usuario user;
+    
     public Principal(usuario user) {
         initComponents();
         this.user = user;

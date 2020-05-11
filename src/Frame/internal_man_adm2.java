@@ -270,7 +270,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
          // String cb=(this.jComboBox1.getSelectedItem().toString());
          
       //  cr.setNomb_carrera((this.jComboBox1.getSelectedItem().toString()));
-    carrera cr= new carrera();
+   // carrera cr= new carrera();
     public void llenarTabla() {
         model.setRowCount(0); 
          int c=this.jComboBox1.getSelectedIndex();

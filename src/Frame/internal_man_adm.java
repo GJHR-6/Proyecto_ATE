@@ -1,5 +1,6 @@
 
 package Frame;
+
 import modelo.usuario;
 import javax.swing.JDesktopPane;
 
@@ -13,6 +14,7 @@ public class internal_man_adm extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
     }
 usuario user;
+
     public internal_man_adm(JDesktopPane dps, Principal prin, internal_man_adm2 frm1, internal_man_adm3 frm2,usuario user) {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
