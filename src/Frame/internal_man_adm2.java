@@ -18,9 +18,9 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
     }
     usuario user;
+    
     String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
     Connection con;
-
     void conectar() {
         try {
             con = DriverManager.getConnection(connectionURL);
@@ -29,7 +29,6 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -58,6 +57,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameClosing(evt);
@@ -151,22 +151,25 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       //Abrir la ventana min_agregar_carrera
         mini_agregar_carrera form = new mini_agregar_carrera((DefaultTableModel) jTable1.getModel(), this);
         form.setLocationRelativeTo(null);
         form.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       //abrir la ventana agregar_asignaturas
         agregar_asignaturas form = new agregar_asignaturas((DefaultTableModel) jTable1.getModel(), 1, this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      //Botón modificar
         int pos = this.jTable1.getSelectedRow();
         if (pos == -1) {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
-        } else {
+        } else { //modificar la clase de la fila seleccionada
             String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString();
             agregar_asignaturas forma = new agregar_asignaturas((DefaultTableModel) jTable1.getModel(), identificador, 2, this); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
@@ -175,7 +178,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        // al abrir
+        // al abrir se llena la tabla con las clases y requisitos
         llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
@@ -184,7 +187,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         int s = this.jTable1.getSelectedRow();
         if (s == -1) {
             // si no se selecciono nada en la tabla s=-1, entonces no hara nada el boton
-        } else { //en caso contrario realizara la opcion de eliminar
+        } else { //en caso contrario realizara la opcion de eliminar, eliminar una clase
             DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
             int pos = Integer.parseInt(model.getValueAt(s, 0).toString());
             try {
@@ -202,10 +205,14 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
-        cerrar();
     }//GEN-LAST:event_formInternalFrameClosing
-    public ResultSet result;
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // cerrar conexión
+          cerrar();
+    }//GEN-LAST:event_formInternalFrameClosed
+    //Llenar la tabla con las clases de cada carrera y sus requisitos
+    public ResultSet result;
     public void llenarTabla() {
         model.setRowCount(0);
 

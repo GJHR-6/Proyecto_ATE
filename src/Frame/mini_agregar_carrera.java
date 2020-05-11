@@ -96,8 +96,14 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //agregar nueva carrera
+        //Botón agregar nueva carrera
         String carre = this.jTextField1.getText().toString();
+        if(this.jTextField1.getText().equals("")) //Si el administrador no ha ingresado el nombre de la carrera
+        {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la carrera");
+        }
+        else
+        {
         try {
             PreparedStatement st = internal.con.prepareStatement("Insert into carrera(nomb_carrera) values(?)");
             st.setString(1, carre);
@@ -108,7 +114,7 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed

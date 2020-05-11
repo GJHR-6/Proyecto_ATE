@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 import modelo.asignaciones;
-//import javafx.scene.paint.Color;
 
 public class agregar_tareas extends javax.swing.JFrame {
 
@@ -118,6 +117,12 @@ public class agregar_tareas extends javax.swing.JFrame {
 
         jComboBox1.setForeground(new java.awt.Color(51, 51, 51));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Baja", "Media", "Alta" }));
+        jComboBox1.setToolTipText("Importancia");
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 30));
 
         jLabel5.setBackground(new java.awt.Color(238, 112, 82));
@@ -127,6 +132,12 @@ public class agregar_tareas extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jComboBox2.setForeground(new java.awt.Color(51, 51, 51));
+        jComboBox2.setToolTipText("Clases");
+        jComboBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox2MouseClicked(evt);
+            }
+        });
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -142,6 +153,7 @@ public class agregar_tareas extends javax.swing.JFrame {
 
         jComboBox3.setForeground(new java.awt.Color(51, 51, 51));
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBox3.setToolTipText("Mes");
         jComboBox3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox3ItemStateChanged(evt);
@@ -160,7 +172,13 @@ public class agregar_tareas extends javax.swing.JFrame {
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 110, 30));
 
         jComboBox4.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Día" }));
+        jComboBox4.setToolTipText("Día");
+        jComboBox4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox4MouseClicked(evt);
+            }
+        });
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -173,6 +191,13 @@ public class agregar_tareas extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(238, 112, 82));
         jLabel7.setText("Fecha:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
+
+        jSpinner1.setToolTipText("Valor");
+        jSpinner1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSpinner1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 70, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancelar.png"))); // NOI18N
@@ -220,24 +245,24 @@ public class agregar_tareas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        //FALTA VALIDACI+ON DE AÑO BISIESTO
+        //Llenar el jComboBox4 con los días dependiendo del mes
         int valor = jComboBox3.getSelectedIndex() + 1;
-        if (valor == 1 || valor == 3 || valor == 5 || valor == 7 || valor == 8 || valor == 10 || valor == 12) {
-            dias = 31;
+        if (valor == 1 || valor == 3 || valor == 5 || valor == 7 || valor == 8 || valor == 10 || valor == 12) { //si el mes es enero,marzo,mayo,julio,agosto,octubre o diciembre
+            dias = 31; //El número de días será 31
         }
-        if (valor == 4 || valor == 11 || valor == 9 || valor == 6) {
-            dias = 30;
+        if (valor == 4 || valor == 11 || valor == 9 || valor == 6) { //si el mes seleccionado es abril,noviembre,septiembre o junio
+            dias = 30; //El número de días será 30
         } else {
         }
-        if (valor == 2) {
-            if (año % 4 == 0) {
+        if (valor == 2) { //Si el mes es febrero
+            if (año % 4 == 0) { //Validación de si es año bisiesto o no 
                 dias = 29;
             } else {
                 dias = 28;
             }
         }
         jComboBox4.removeAllItems();
-        for (int i = 1; i <= dias; i++) {
+        for (int i = 1; i <= dias; i++) { //Llenar el jComboBox con los días
             jComboBox4.addItem("" + i);
         }
     }//GEN-LAST:event_jComboBox3ActionPerformed
@@ -247,6 +272,7 @@ public class agregar_tareas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+    //Llenar jCombobox3 con los meses
         jComboBox3.removeAllItems();
         jComboBox3.addItem("Enero");
         jComboBox3.addItem("Febrero");
@@ -262,31 +288,31 @@ public class agregar_tareas extends javax.swing.JFrame {
         jComboBox3.addItem("Diciembre");
 
     }//GEN-LAST:event_jComboBox3MouseClicked
-    int año = f.get(Calendar.YEAR);//usar f para validacion del año bisiesto
+    int año = f.get(Calendar.YEAR);
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose(); //para el boton cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         asignaciones tarea= new asignaciones();
         ResultSet resul = null;
-
 //        String asign = (this.jComboBox2.getSelectedItem().toString());
 //        String descrip = this.jTextField1.getText();
 //        String importa = (this.jComboBox1.getSelectedItem().toString());
 //        double valor = Double.valueOf(jSpinner1.getValue().toString());
-        
-        int mes = (this.jComboBox3.getSelectedIndex() + 1);
-        int dia = (this.jComboBox4.getSelectedIndex() + 1);
-        tarea.setNomb_asig((String)jComboBox2.getSelectedItem());
-        tarea.setDesc_asig(jTextField1.getText());
-        tarea.setImportancia((String)jComboBox1.getSelectedItem());
-        tarea.setPuntaje(Double.valueOf(jSpinner1.getValue().toString()));
-                  tarea.setFecha_entrega(dia + "/" + mes + "/" + año); 
+          
+                        int mes = (this.jComboBox3.getSelectedIndex() + 1);
+                        int dia = (this.jComboBox4.getSelectedIndex() + 1);
+                        tarea.setNomb_asig((String)jComboBox2.getSelectedItem());
+                        tarea.setDesc_asig(jTextField1.getText());
+                        tarea.setImportancia((String)jComboBox1.getSelectedItem());
+                        tarea.setPuntaje(Double.valueOf(jSpinner1.getValue().toString()));
+                        tarea.setFecha_entrega(dia + "/" + mes + "/" + año);        
+   
         switch (accion) {
-
+        //En el caso de agregar tareas
             case 1:
                 actualizar();
-
+        
                 try {
                     PreparedStatement st = internal.con.prepareStatement("Insert into asignaciones(nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,id_usuario) values (?,?,?,?,?,?)");
                     st.setString(1, tarea.getNomb_asig());
@@ -303,10 +329,12 @@ public class agregar_tareas extends javax.swing.JFrame {
                 } catch (Exception x) {
                     JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
                 }
+               
                 break;
+            //En el caso de modificar tareas    
             case 2:
                 modificar();
-
+               
                 try {
                     PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + tarea.getNomb_asig() + "',desc_asig='" + tarea.getDesc_asig() + "',importancia='" + tarea.getImportancia() + "',puntaje=" + tarea.getPuntaje() + ",fecha_entrega='" + tarea.getFecha_entrega() + "' where asig_id=" + pos + "");
 
@@ -320,13 +348,31 @@ public class agregar_tareas extends javax.swing.JFrame {
                 }
                 break;
         }
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //al abrir la ventana
-        llenar_combo();
+        //al abrir la ventana se llenará el jComboBox2 con las clases
+        llenar_combo();   
     }//GEN-LAST:event_formWindowOpened
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
+        // TODO add your handling code here:
+        /*this.jComboBox2.removeAllItems();
+        llenar_combo();*/
+    }//GEN-LAST:event_jComboBox2MouseClicked
+
+    private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
+   
+    }//GEN-LAST:event_jComboBox4MouseClicked
+
+    private void jSpinner1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinner1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSpinner1MouseClicked
     public void modificar() {    //opcion de modificar
         /* String fecha=(this.jComboBox3.getSelectedIndex()+1)+"/"+this.jComboBox4.getSelectedIndex()+"/2020";
         String titulo=this.jTextField1.getText();
@@ -352,8 +398,8 @@ public class agregar_tareas extends javax.swing.JFrame {
     public void mostrar() {      // muestra el titulo de la tarea a modificar
 
     }
+    //Llenar el jComboBox2 con las clases que el usuario está llevando 
     public ResultSet result;
-
     public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos en la parte de clases_periodo las cuales insertamos en agg_asignatura_user2
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='"+user.getId_user()+"'");
@@ -367,7 +413,6 @@ public class agregar_tareas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }
-
     public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
@@ -402,20 +447,6 @@ public class agregar_tareas extends javax.swing.JFrame {
 
     }
 
-    /*void pintarfila(){
-    String fila;
-            for(int i=0; i<this.model.getRowCount();i++)
-            {
-                fila=model.getValueAt(i,0);
-                if(this.jComboBox1.equals("Baja"))
-                    model.setForeground(Color.GRAY);
-                  if(this.jComboBox1.equals("Media"))
-                    model.setForeground(Color.SALMON);
-                    if(this.jComboBox1.equals("Alta"))
-                    model.setForeground(Color.BLUE);
-            }
-            }
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

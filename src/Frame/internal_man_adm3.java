@@ -18,6 +18,8 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
         this.u=user;
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
     }
+     usuario u;//objeto de tipo usuario
+     public ResultSet result;
      JDesktopPane dpst;
     String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
     Connection con;
@@ -30,7 +32,6 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -39,10 +40,7 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage().toString());
         }
     }
-    usuario u;//objeto de tipo usuario
-
-    public ResultSet result;
-
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -239,7 +237,8 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //cambiar contraseña
+        //Botón cambiar contraseña
+        //El administrador le cambiará la contraseña al usuario seleccionado dejando "1234" como nueva contraseña
         String us = this.jComboBox1.getSelectedItem().toString();
         if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
         {
@@ -251,6 +250,8 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
             PreparedStatement st = con.prepareStatement("update usuario set password='" + 1234 + "' where nomb_user='" + us + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Contraseña de usuario modificada");
+            this.jComboBox1.removeAllItems();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }  
@@ -259,21 +260,32 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Cambiar a administrador
+        //El administrador podrá cambiar un usuario seleccionado a administrador 
         String us = this.jComboBox1.getSelectedItem().toString();
+        if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
+        }
+        else
+        {
         try {
             PreparedStatement st = con.prepareStatement("update usuario set esadmin='" + true + "' where nomb_user='" + us + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Usuario modificado a administrador");
+            this.jComboBox1.removeAllItems();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    }
+    
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
 
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+    //Al hacer click en el jComboBox1 se llenará con los nombres de los usuarios
     this.jComboBox1.removeAllItems();
     llenar_combo();
     }//GEN-LAST:event_jComboBox1MouseClicked
@@ -283,12 +295,13 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // modificar contraseña
+        //Botón modificar contraseña
+        //El administrador podrá cambiar su propia contraseña
         String cont = this.jTextField2.getText();
-          if (u.getPassword().equals(cont)) {
+          if (u.getPassword().equals(cont)) { //Verificación de si ingreso su contraseña anterior bien
             String nueva = this.jTextField3.getText();
             String compar = this.jTextField4.getText();
-            if (nueva.equals(compar)) {
+            if (nueva.equals(compar)) { //verificación de si confirmó la contraseña bien
                 try {
                     PreparedStatement st = con.prepareStatement("update usuario set password='" + nueva + "' where nomb_user='" +u.getNomb_user()+ "'");
                     st.execute();
@@ -320,7 +333,7 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        // TODO add your handling code here:
+        // Al abrir la ventana el jComboBox solo tendrá esté item, hasta ser seleccionado apareceran los usuarios
         //llenar_combo();
         this.jComboBox1.addItem("Seleccione usuario");
     }//GEN-LAST:event_formInternalFrameOpened
@@ -328,18 +341,28 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //Botón eliminar
         String us = this.jComboBox1.getSelectedItem().toString();
+        if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
+        }
+        else
+        {
+         
+        //u.setNomb_user(this.jComboBox1.getSelectedItem().toString());
         try {
-            PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
+             PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
+          // PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_usuario='" + u.getId_user() + "' ");
+            //st = con.prepareStatement("delete from clases_periodo where id_usuario='" +u.getId_user() + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Usuario eliminado");
             this.jComboBox1.removeAllItems();
-           // this.jComboBox1.setSelectedIndex(0);
-            llenar_combo();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
+  
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
@@ -365,7 +388,7 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     private void jButton3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jButton3PropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3PropertyChange
-
+    //Llenar el jComboBox1 con los nombres de los usuarios
     public void llenar_combo() {
         try {
             PreparedStatement at = con.prepareStatement("Select nomb_user from usuario");

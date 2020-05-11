@@ -2,6 +2,23 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/Principal.java</file>
+=======
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/mini_agregar_nota.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
+>>>>>>> b8adcf8f0daa338c9c9554bd4c995c2433fb2635
+=======
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/mini_agregar_nota.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
+>>>>>>> b8adcf8f0daa338c9c9554bd4c995c2433fb2635
+=======
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/mini_agregar_nota.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
+>>>>>>> b8adcf8f0daa338c9c9554bd4c995c2433fb2635
+        </group>
     </open-files>
 </project-private>

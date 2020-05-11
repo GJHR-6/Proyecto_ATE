@@ -30,7 +30,6 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -111,10 +110,14 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Asignaturas Agregadas"
+                "id", "Asignaturas Agregadas"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(2);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 370, 320));
 
@@ -133,6 +136,7 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Abrir mini_agregar_nota
         agg_asignatura_periodo form = new agg_asignatura_periodo((DefaultTableModel) jTable1.getModel(), this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);// muestra el frame de agregar asignatura al periodo
@@ -143,19 +147,38 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //empezar periodo
-        this.jButton1.setEnabled(false);
+        //Eliminar clase
+         int s = this.jTable1.getSelectedRow();
+         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+         int pos = Integer.parseInt(this.jTable1.getValueAt(s, 0).toString());
+         if (s == -1) {
+            // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
+           }
+         else
+         {
+            {
+                try {
+                PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_periodo=" + pos + "");
+
+                st.execute();
+
+                llenarTabla();
+
+            } catch (Exception x) {
+                JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+                    }  
+        }}
     }//GEN-LAST:event_jButton2ActionPerformed
     public ResultSet result;
 
     public void llenarTabla() { //aquí llenamos la tabla con las clases que seleccionó el usuario del jComboBox
         model.setRowCount(0);
         try {
-            PreparedStatement at = con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
+            PreparedStatement at = con.prepareStatement("Select id_periodo,nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
             result = at.executeQuery();
             while (result.next()) //llena la bd con la tabla del result
             {
-                model.addRow(new Object[]{result.getString("nomb_clase")});
+                model.addRow(new Object[]{result.getInt("id_periodo"),result.getString("nomb_clase")});
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
