@@ -1,5 +1,5 @@
 package Frame;
-import modelo.carrera;
+
 import modelo.usuario;
 import java.awt.Font;
 import java.sql.Connection;

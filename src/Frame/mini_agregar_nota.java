@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.usuario;
+import modelo.asignaciones;
 
 public class mini_agregar_nota extends javax.swing.JFrame {
 

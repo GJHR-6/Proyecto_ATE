@@ -295,9 +295,9 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         //String carrera=(this.jComboBox1.getSelectedItem().toString());
         //int codi=Integer.valueOf(this.jTextField1.toString());
         String asig = this.jTextField2.getText();
-        int req1 = (this.jComboBox2.getSelectedIndex() );
-        int req2 = (this.jComboBox3.getSelectedIndex() );
-        int req3 = (this.jComboBox4.getSelectedIndex() );
+        int req1 = (this.jComboBox2.getSelectedIndex()+1 );
+        int req2 = (this.jComboBox3.getSelectedIndex()+1 );
+        int req3 = (this.jComboBox4.getSelectedIndex()+1 );
         //int req1=Integer.valueOf(this.jComboBox2.getSelectedItem().toString());
         //int req2=Integer.valueOf(this.jComboBox3.getSelectedItem().toString());
         //int req3=Integer.valueOf(this.jComboBox4.getSelectedItem().toString());
@@ -306,7 +306,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
             case 1:
                 actualizar();
                  {
-                     if(this.jTextField2.getText().equals("") || this.jComboBox1.getItemAt(0).equals("Seleccione clase") || this.jTextField2.getText()=="" || this.jComboBox2.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox3.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox4.getItemAt(0).equals("Seleccione requisito") )
+                     if(this.jTextField2.getText().equals("") || this.jComboBox1.getItemAt(0).equals("Seleccione carrera") || this.jTextField2.getText()=="" || this.jComboBox2.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox3.getItemAt(0).equals("Seleccione requisito") ||  this.jComboBox4.getItemAt(0).equals("Seleccione requisito") )
                       {
                        JOptionPane.showMessageDialog(null, "Debe llenar los datos");
                       }
@@ -360,7 +360,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // 
-        this.jComboBox1.addItem("Seleccione clase");
+        this.jComboBox1.addItem("Seleccione carrera");
         this.jComboBox2.addItem("Seleccione requisito");
         this.jComboBox3.addItem("Seleccione requisito");
         this.jComboBox4.addItem("Seleccione requisito");

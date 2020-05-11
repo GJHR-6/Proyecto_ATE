@@ -3,6 +3,7 @@ package Frame;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.usuario;
 
 public class mini_agregar_carrera extends javax.swing.JFrame {
 
@@ -12,11 +13,12 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
         initComponents();
     }
     DefaultTableModel tbmodelo;
-
-    public mini_agregar_carrera(DefaultTableModel tb, internal_man_adm2 i) {
+    usuario user;
+    public mini_agregar_carrera(DefaultTableModel tb, internal_man_adm2 i,usuario user) {
         initComponents();
         tbmodelo = tb;
         internal = i;
+        this.user=user;
     }
 
     @SuppressWarnings("unchecked")
@@ -108,7 +110,8 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
             PreparedStatement st = internal.con.prepareStatement("Insert into carrera(nomb_carrera) values(?)");
             st.setString(1, carre);
             st.execute();
-
+            internal.llenar_combo();
+            internal.llenarTabla();
             this.dispose();
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());

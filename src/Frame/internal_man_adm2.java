@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.carrera;
 import modelo.usuario;
 
 public class internal_man_adm2 extends javax.swing.JInternalFrame {
@@ -50,6 +51,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -145,6 +147,24 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 240, 40));
 
+        jComboBox1.setBackground(new java.awt.Color(255, 153, 0));
+        jComboBox1.setToolTipText("Seleccionar carrera");
+        jComboBox1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBox1PopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 240, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 540));
 
         pack();
@@ -152,7 +172,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        //Abrir la ventana min_agregar_carrera
-        mini_agregar_carrera form = new mini_agregar_carrera((DefaultTableModel) jTable1.getModel(), this);
+        mini_agregar_carrera form = new mini_agregar_carrera((DefaultTableModel) jTable1.getModel(), this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -179,6 +199,10 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // al abrir se llena la tabla con las clases y requisitos
+      //  llenarTabla();
+       // this.jComboBox1.removeAllItems();
+        this.jComboBox1.addItem("Seleccione carrera");
+        llenar_combo();
         llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
@@ -211,12 +235,48 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         // cerrar conexión
           cerrar();
     }//GEN-LAST:event_formInternalFrameClosed
-    //Llenar la tabla con las clases de cada carrera y sus requisitos
-    public ResultSet result;
-    public void llenarTabla() {
-        model.setRowCount(0);
 
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+      //  llenarTabla();
+      /*  this.jComboBox1.removeAll();
+        llenar_combo();*/
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBox1PopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+        llenarTabla();
+    }//GEN-LAST:event_jComboBox1PopupMenuWillBecomeInvisible
+    //Llenar la tabla con las clases de cada carrera y sus requisitos
+    
+    public ResultSet result;
+    
+   /*  public void llenarTabla() {
+        model.setRowCount(0);
+       
         try {
+
+            PreparedStatement at = con.prepareStatement("Select id_clase, nomb_clase,requisito,requisito2,requisito3 from clases "); //manda el codigo al pergamino
+            result = at.executeQuery(); //ejecutar el query
+            while (result.next()) //llena la bd con la tabla del result
+            {
+                model.addRow(new Object[]{result.getInt("id_clase"), result.getString("nomb_clase"), result.getInt("requisito"), result.getInt("requisito2"), result.getInt("requisito3")});
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+     }*/
+      
+         // String cb=(this.jComboBox1.getSelectedItem().toString());
+         
+      //  cr.setNomb_carrera((this.jComboBox1.getSelectedItem().toString()));
+    carrera cr= new carrera();
+    public void llenarTabla() {
+        model.setRowCount(0); 
+         int c=this.jComboBox1.getSelectedIndex();
+      if(this.jComboBox1.getSelectedItem().equals("Seleccione carrera"))
+      {
+          try {
 
             PreparedStatement at = con.prepareStatement("Select id_clase, nomb_clase,requisito,requisito2,requisito3 from clases"); //manda el codigo al pergamino
             result = at.executeQuery(); //ejecutar el query
@@ -227,13 +287,57 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
-    }
+      }
+        else
+        {
+        try {
 
+            PreparedStatement at = con.prepareStatement("Select id_clase, nomb_clase,requisito,requisito2,requisito3 from clases where id_carrera ="+c+""); //manda el codigo al pergamino
+            result = at.executeQuery(); //ejecutar el query
+            while (result.next()) //llena la bd con la tabla del result
+            {
+                model.addRow(new Object[]{result.getInt("id_clase"), result.getString("nomb_clase"), result.getInt("requisito"), result.getInt("requisito2"), result.getInt("requisito3")});
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+    }
+    }
+    
+   
+    public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+        try {
+            PreparedStatement at = con.prepareStatement("Select nomb_carrera from carrera");
+            result = at.executeQuery();
+            while (result.next()) {
+                 jComboBox1.addItem(result.getString("nomb_carrera"));
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+    }
+    /* public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+        try {
+            PreparedStatement at = con.prepareStatement("Select id_carrera, nomb_carrera from carrera");
+            result = at.executeQuery();
+            carrera cr;
+            while (result.next()) {
+                cr = new carrera();
+                cr.setNomb_carrera(result.getString("nomb_carrera"));
+                cr.setId_carrera(result.getInt("id_carrera"));
+                
+                jComboBox1.addItem(cr);
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

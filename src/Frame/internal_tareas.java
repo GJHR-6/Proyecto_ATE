@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableCellRenderer; //para cambiar los colores de las filas
 
 public class internal_tareas extends javax.swing.JInternalFrame {
 

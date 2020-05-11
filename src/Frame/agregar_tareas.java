@@ -334,7 +334,6 @@ public class agregar_tareas extends javax.swing.JFrame {
             //En el caso de modificar tareas    
             case 2:
                 modificar();
-               
                 try {
                     PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + tarea.getNomb_asig() + "',desc_asig='" + tarea.getDesc_asig() + "',importancia='" + tarea.getImportancia() + "',puntaje=" + tarea.getPuntaje() + ",fecha_entrega='" + tarea.getFecha_entrega() + "' where asig_id=" + pos + "");
 
