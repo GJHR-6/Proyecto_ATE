@@ -299,14 +299,11 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         ResultSet resul = null;
         //String carrera=(this.jComboBox1.getSelectedItem().toString());
         //int codi=Integer.valueOf(this.jTextField1.toString());
-        //int req1 = (this.jComboBox2.getSelectedIndex()+1 );
-        //int req2 = (this.jComboBox3.getSelectedIndex()+1 );
-        //int req3 = (this.jComboBox4.getSelectedIndex()+1 );
-        String asig = this.jTextField2.getText();
-        int req1=Integer.valueOf(this.jComboBox2.getSelectedItem().toString());
-        int req2=Integer.valueOf(this.jComboBox3.getSelectedItem().toString());
-        int req3=Integer.valueOf(this.jComboBox4.getSelectedItem().toString());
- 
+
+        clas.setNomb_clase(this.jTextField2.getText());
+        clas.setRequisito(Integer.valueOf(this.jComboBox2.getSelectedItem().toString()));
+        clas.setRequisito2(Integer.valueOf(this.jComboBox3.getSelectedItem().toString()));
+        clas.setRequisito3(Integer.valueOf(this.jComboBox4.getSelectedItem().toString()));
         //clas.setCarrera((carrera)this.jComboBox1.getSelectedItem());
         switch (accion) {
         //case 1 es el de agregar
@@ -322,10 +319,10 @@ public class agregar_asignaturas extends javax.swing.JFrame {
                     try {
                         PreparedStatement st = internal.con.prepareStatement("Insert into clases(nomb_clase,requisito,requisito2,requisito3,id_carrera) values (?,?,?,?,?)");
                         //st.setInt(0,codi);
-                        st.setString(1, asig);
-                        st.setInt(2, req1);
-                        st.setInt(3, req2);
-                        st.setInt(4, req3);
+                        st.setString(1, clas.getNomb_clase());
+                        st.setInt(2, clas.getRequisito());
+                        st.setInt(3, clas.getRequisito2());
+                        st.setInt(4, clas.getRequisito3());
                         st.setInt(5, this.jComboBox1.getSelectedIndex()+1);
                         //st.setInt(5, clas.getCarrera().getId_carrera());
                         st.execute();
@@ -351,7 +348,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
                       else
                       {
                     try {
-                        PreparedStatement st = internal.con.prepareStatement("update clases set nomb_clase='" + asig + "',requisito=" + req1 + ",requisito2=" + req2 + ",requisito3=" + req3 + ",id_carrera="+cod+" where id_clase=" + pos + "");
+                        PreparedStatement st = internal.con.prepareStatement("update clases set nomb_clase='" + clas.getNomb_clase() + "',requisito=" + clas.getRequisito() + ",requisito2=" + clas.getRequisito2()+ ",requisito3=" + clas.getRequisito3() + ",id_carrera="+cod+" where id_clase=" + pos + "");
                         
                         st.execute();
 
