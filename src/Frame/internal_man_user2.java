@@ -30,7 +30,6 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -137,6 +136,7 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Abrir mini_agregar_nota
         agg_asignatura_periodo form = new agg_asignatura_periodo((DefaultTableModel) jTable1.getModel(), this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);// muestra el frame de agregar asignatura al periodo
@@ -147,14 +147,17 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //empezar periodo
+        //Eliminar clase
          int s = this.jTable1.getSelectedRow();
-       /* if (s == -1) {
-            // si no se selecciono nada en la tabla s=-1, entonces no hara nada el boton
-        }*/  //en caso contrario realizara la opcion de eliminar
-            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-            int pos = Integer.parseInt(this.jTable1.getValueAt(s, 0).toString());
-            try {
+         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+         int pos = Integer.parseInt(this.jTable1.getValueAt(s, 0).toString());
+         if (s == -1) {
+            // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
+           }
+         else
+         {
+            {
+                try {
                 PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_periodo=" + pos + "");
 
                 st.execute();
@@ -163,8 +166,8 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
 
             } catch (Exception x) {
                 JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-            
-        }
+                    }  
+        }}
     }//GEN-LAST:event_jButton2ActionPerformed
     public ResultSet result;
 

@@ -12,7 +12,7 @@ public class mini_agregar_nota extends javax.swing.JFrame {
     public mini_agregar_nota() {
         initComponents();
     }
-  internal_tareas internal; //para llamar lo que está en la clase internal (en la que está la conexión)
+    internal_tareas internal; //para llamar lo que está en la clase internal (en la que está la conexión)
     usuario user;
     public mini_agregar_nota(DefaultTableModel tb, internal_tareas i, usuario user) {// aqui se pedirian las cosas para agregar la nota final
         initComponents();
@@ -31,11 +31,11 @@ public class mini_agregar_nota extends javax.swing.JFrame {
         internal = x;
         this.user=user;
         for (int i = 0; i <= tbmodelo.getRowCount() - 1; i++) {
-            if (tbmodelo.getValueAt(i, 0).toString().equalsIgnoreCase(iden)) { //
+            if (tbmodelo.getValueAt(i, 0).toString().equalsIgnoreCase(iden)) { //Pos=la fila, columna 0 donde se encuentra el asig_id
                 pos = i;
             }
         }
-    pos = Integer.parseInt(iden);
+    pos = Integer.parseInt(iden); //ident en internal_tareas se definió como la fila seleccionada
     }
     DefaultTableModel tbmodelo;
     @SuppressWarnings("unchecked")
@@ -106,18 +106,18 @@ public class mini_agregar_nota extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose(); //para el boton cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //Botón de agregar
+        //Botón de agregar notaf
 
        double agg=Double.parseDouble(this.jTextField1.getText());
      
        try {
-                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set notaF=" + agg +" where asig_id=" + pos + "");
+                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set notaF=" + agg +" where asig_id=" + pos + ""); //Actualizamos la tabla con la nota donde asig_id =pos
 
                     st.execute();
                     internal.llenarTabla();

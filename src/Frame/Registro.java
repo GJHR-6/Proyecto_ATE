@@ -16,6 +16,7 @@ public class Registro extends javax.swing.JFrame {
         conectar();
         this.setLocationRelativeTo(null); //coloca el frame en el centro
     }
+    //Coneción con la base de datos
     String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
     Connection con;
 
@@ -27,7 +28,6 @@ public class Registro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -36,9 +36,8 @@ public class Registro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage().toString());
         }
     }
-
     usuario u;//objeto de tipo usuario
-carrera c;
+    carrera c;
     public void buscaruser(String usr) {
         u = new usuario(); //damos un espacio en memoria
         try {
@@ -50,11 +49,8 @@ carrera c;
                 u.setId_user(result.getInt("id_user")); //selecciona lo contenido de la primera columna
                 u.setNomb_user(result.getString("nomb_user"));//selecciona lo contenido de la segunda columna
             }
-
-        } catch (Exception x) {
-
-        }
-
+       } catch (Exception x) {
+                              }
     }
 
     @SuppressWarnings("unchecked")
@@ -261,21 +257,20 @@ carrera c;
             this.dispose();
         }*/
         //REGISTRARSE
-          if((this.jTextField1.getText().equals("")) || (this.jPasswordField1.getText().toString()=="") || this.jPasswordField2.getText()=="" || this.jComboBox1.getItemAt(0)==null)
+          if((this.jTextField1.getText().equals("")) || (this.jPasswordField1.getText().toString()=="") || this.jPasswordField2.getText()=="" || this.jComboBox1.getItemAt(0)==null) //Para verificar que el usuario haya ingresado todos los datos
         {
-            JOptionPane.showMessageDialog(null, "Debe introducir todos los datos");
+            JOptionPane.showMessageDialog(null, "Debe ingresar todos los datos");
         }
         else
         {
-        String confir = this.jPasswordField2.getText().toString();
-        usuario UserNuevo = new usuario();
-        
+        String confir = this.jPasswordField2.getText().toString(); 
+        usuario UserNuevo = new usuario();    
         UserNuevo.setCarrera((carrera)jComboBox1.getSelectedItem());
         UserNuevo.setPassword(jPasswordField1.getText());
-        UserNuevo.setNomb_user(jTextField1.getText());
+        UserNuevo.setNomb_user(jTextField1.getText()); 
         
-        buscaruser(jTextField1.getText());
-        if (u.getNomb_user() == null && UserNuevo.getNomb_user()!="") 
+        buscaruser(jTextField1.getText()); //Buscar en la base de datos si ese nombre de usuario existe
+        if (u.getNomb_user() == null) //En el caso de no existir entonces se procede a registrar el usuario
         {
             if (UserNuevo.getPassword().equals(confir)) {
                 try {
@@ -328,6 +323,7 @@ carrera c;
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+   //Al darle click al jComboBox de las carreras
     this.jComboBox1.removeAllItems();
     llenar_combo();
     }//GEN-LAST:event_jComboBox1MouseClicked
@@ -372,8 +368,8 @@ carrera c;
             }
         });
     }
+   
     public ResultSet result;
-
     public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
         try {
             PreparedStatement at = con.prepareStatement("Select id_carrera, nomb_carrera from carrera");

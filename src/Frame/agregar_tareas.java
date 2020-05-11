@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 import modelo.asignaciones;
-//import javafx.scene.paint.Color;
 
 public class agregar_tareas extends javax.swing.JFrame {
 
@@ -246,24 +245,24 @@ public class agregar_tareas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        //FALTA VALIDACI+ON DE AÑO BISIESTO
+        //Llenar el jComboBox4 con los días dependiendo del mes
         int valor = jComboBox3.getSelectedIndex() + 1;
-        if (valor == 1 || valor == 3 || valor == 5 || valor == 7 || valor == 8 || valor == 10 || valor == 12) {
-            dias = 31;
+        if (valor == 1 || valor == 3 || valor == 5 || valor == 7 || valor == 8 || valor == 10 || valor == 12) { //si el mes es enero,marzo,mayo,julio,agosto,octubre o diciembre
+            dias = 31; //El número de días será 31
         }
-        if (valor == 4 || valor == 11 || valor == 9 || valor == 6) {
-            dias = 30;
+        if (valor == 4 || valor == 11 || valor == 9 || valor == 6) { //si el mes seleccionado es abril,noviembre,septiembre o junio
+            dias = 30; //El número de días será 30
         } else {
         }
-        if (valor == 2) {
-            if (año % 4 == 0) {
+        if (valor == 2) { //Si el mes es febrero
+            if (año % 4 == 0) { //Validación de si es año bisiesto o no 
                 dias = 29;
             } else {
                 dias = 28;
             }
         }
         jComboBox4.removeAllItems();
-        for (int i = 1; i <= dias; i++) {
+        for (int i = 1; i <= dias; i++) { //Llenar el jComboBox con los días
             jComboBox4.addItem("" + i);
         }
     }//GEN-LAST:event_jComboBox3ActionPerformed
@@ -273,6 +272,7 @@ public class agregar_tareas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+    //Llenar jCombobox3 con los meses
         jComboBox3.removeAllItems();
         jComboBox3.addItem("Enero");
         jComboBox3.addItem("Febrero");
@@ -288,14 +288,13 @@ public class agregar_tareas extends javax.swing.JFrame {
         jComboBox3.addItem("Diciembre");
 
     }//GEN-LAST:event_jComboBox3MouseClicked
-    int año = f.get(Calendar.YEAR);//usar f para validacion del año bisiesto
+    int año = f.get(Calendar.YEAR);
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose(); //para el boton cancelar
     }//GEN-LAST:event_jButton2ActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         asignaciones tarea= new asignaciones();
         ResultSet resul = null;
-
 //        String asign = (this.jComboBox2.getSelectedItem().toString());
 //        String descrip = this.jTextField1.getText();
 //        String importa = (this.jComboBox1.getSelectedItem().toString());
@@ -310,7 +309,7 @@ public class agregar_tareas extends javax.swing.JFrame {
                         tarea.setFecha_entrega(dia + "/" + mes + "/" + año);        
    
         switch (accion) {
-
+        //En el caso de agregar tareas
             case 1:
                 actualizar();
         
@@ -332,6 +331,7 @@ public class agregar_tareas extends javax.swing.JFrame {
                 }
                
                 break;
+            //En el caso de modificar tareas    
             case 2:
                 modificar();
                
@@ -352,7 +352,7 @@ public class agregar_tareas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //al abrir la ventana
+        //al abrir la ventana se llenará el jComboBox2 con las clases
         llenar_combo();   
     }//GEN-LAST:event_formWindowOpened
 
@@ -398,8 +398,8 @@ public class agregar_tareas extends javax.swing.JFrame {
     public void mostrar() {      // muestra el titulo de la tarea a modificar
 
     }
+    //Llenar el jComboBox2 con las clases que el usuario está llevando 
     public ResultSet result;
-
     public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos en la parte de clases_periodo las cuales insertamos en agg_asignatura_user2
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='"+user.getId_user()+"'");

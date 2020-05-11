@@ -234,6 +234,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+   //Al darle click al jComboBox1 primero se eliminará lo que ingresamos al abrir la ventana y luego se llenará con las carreras
     this.jComboBox1.removeAllItems();
     llenar_combo_carrera();
     }//GEN-LAST:event_jComboBox1MouseClicked
@@ -251,7 +252,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
-        // TODO add your handling code here:
+    //Al darle click al jComboBox1 primero se eliminará lo que ingresamos al abrir la ventana y luego se llenará con los requisitos
     this.jComboBox2.removeAllItems();
     llenar_combo_req1();
     }//GEN-LAST:event_jComboBox2MouseClicked
@@ -265,7 +266,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
-        // TODO add your handling code here:
+    //Al darle click al jComboBox1 primero se eliminará lo que ingresamos al abrir la ventana y luego se llenará con los requisitos
      this.jComboBox3.removeAllItems();
      llenar_combo_req2();
     }//GEN-LAST:event_jComboBox3MouseClicked
@@ -279,7 +280,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ItemStateChanged
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
-        // TODO add your handling code here:     
+    //Al darle click al jComboBox1 primero se eliminará lo que ingresamos al abrir la ventana y luego se llenará con los requisitos  
     this.jComboBox4.removeAllItems();
     llenar_combo_req3();
     }//GEN-LAST:event_jComboBox4MouseClicked
@@ -289,9 +290,8 @@ public class agregar_asignaturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Botón agregar
         ResultSet resul = null;
-
         //String carrera=(this.jComboBox1.getSelectedItem().toString());
         //int codi=Integer.valueOf(this.jTextField1.toString());
         String asig = this.jTextField2.getText();
@@ -302,7 +302,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         //int req2=Integer.valueOf(this.jComboBox3.getSelectedItem().toString());
         //int req3=Integer.valueOf(this.jComboBox4.getSelectedItem().toString());
         switch (accion) {
-
+        //case 1 es el de agregar
             case 1:
                 actualizar();
                  {
@@ -331,6 +331,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
                 }
                  }
                 break;
+            //case 2 es el de modificar    
             case 2:
                 modificar();
                  {
@@ -364,9 +365,9 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         this.jComboBox3.addItem("Seleccione requisito");
         this.jComboBox4.addItem("Seleccione requisito");
       /*  llenar_combo_carrera();
-        llenar_combo_req1();
-        llenar_combo_req2();
-        llenar_combo_req3();*/
+          llenar_combo_req1();
+          llenar_combo_req2();
+          llenar_combo_req3();*/
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
@@ -409,7 +410,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
 
     }
     public ResultSet result;
-
+    //Llenar el jComboBox1 con las carreras
     public void llenar_combo_carrera() {
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_carrera from carrera");
@@ -422,7 +423,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }
-
+    //Llenar el jComboBox2 con los requisitos
     public void llenar_combo_req1() {
         try {
             PreparedStatement at = internal.con.prepareStatement("Select id_clase from clases");
@@ -435,7 +436,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }
-
+   //Llenar el jComboBox3 con los requisitos
     public void llenar_combo_req2() {
         try {
             PreparedStatement at = internal.con.prepareStatement("Select id_clase from clases");
@@ -448,7 +449,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }
-
+    //Llenar el jComboBox4 con los requisitos
     public void llenar_combo_req3() {
         try {
             PreparedStatement at = internal.con.prepareStatement("Select id_clase from clases");
