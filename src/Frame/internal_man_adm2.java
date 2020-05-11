@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.carrera;
 import modelo.usuario;
-
+import modelo.clases;
 public class internal_man_adm2 extends javax.swing.JInternalFrame {
 
     public internal_man_adm2(usuario user) {
@@ -19,7 +19,8 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
     }
     usuario user;
-    
+    clases cla;
+    carrera c;
     String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
     Connection con;
     void conectar() {
@@ -201,7 +202,7 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         // al abrir se llena la tabla con las clases y requisitos
       //  llenarTabla();
        // this.jComboBox1.removeAllItems();
-        this.jComboBox1.addItem("Seleccione carrera");
+       // this.jComboBox1.addItem("Seleccione carrera");
         llenar_combo();
         llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
@@ -247,16 +248,15 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         llenarTabla();
     }//GEN-LAST:event_jComboBox1PopupMenuWillBecomeInvisible
-    //Llenar la tabla con las clases de cada carrera y sus requisitos
-    
+    //Llenar la tabla con las clases de cada carrera y sus requisitos   
     public ResultSet result;
-    
-   /*  public void llenarTabla() {
-        model.setRowCount(0);
-       
-        try {
+    public void llenarTabla() {
+        clases cl= new clases();
+        model.setRowCount(0); 
+        cl.setCarrera((carrera)jComboBox1.getSelectedItem()); 
+       try {
 
-            PreparedStatement at = con.prepareStatement("Select id_clase, nomb_clase,requisito,requisito2,requisito3 from clases "); //manda el codigo al pergamino
+            PreparedStatement at = con.prepareStatement("Select id_clase, nomb_clase,requisito,requisito2,requisito3 from clases where id_carrera ="+cl.getCarrera().getId_carrera()+""); //manda el codigo al pergamino
             result = at.executeQuery(); //ejecutar el query
             while (result.next()) //llena la bd con la tabla del result
             {
@@ -265,13 +265,27 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
-     }*/
-      
-         // String cb=(this.jComboBox1.getSelectedItem().toString());
-         
-      //  cr.setNomb_carrera((this.jComboBox1.getSelectedItem().toString()));
-   // carrera cr= new carrera();
-    public void llenarTabla() {
+    }
+    public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+        try {
+            PreparedStatement at = con.prepareStatement("Select id_carrera, nomb_carrera from carrera");
+            result = at.executeQuery();
+            carrera cr;
+            while (result.next()) {
+                cr = new carrera();
+                cr.setNomb_carrera(result.getString("nomb_carrera"));
+                cr.setId_carrera(result.getInt("id_carrera"));
+                
+                jComboBox1.addItem(cr);
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+    }
+    
+    /*
+     public void llenarTabla() {
+        clases cl= new clases();
         model.setRowCount(0); 
          int c=this.jComboBox1.getSelectedIndex();
       if(this.jComboBox1.getSelectedItem().equals("Seleccione carrera"))
@@ -303,9 +317,9 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         }
     }
     }
+    */
     
-   
-    public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+    /*public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
         try {
             PreparedStatement at = con.prepareStatement("Select nomb_carrera from carrera");
             result = at.executeQuery();
@@ -315,23 +329,8 @@ public class internal_man_adm2 extends javax.swing.JInternalFrame {
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
-    }
-    /* public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
-        try {
-            PreparedStatement at = con.prepareStatement("Select id_carrera, nomb_carrera from carrera");
-            result = at.executeQuery();
-            carrera cr;
-            while (result.next()) {
-                cr = new carrera();
-                cr.setNomb_carrera(result.getString("nomb_carrera"));
-                cr.setId_carrera(result.getInt("id_carrera"));
-                
-                jComboBox1.addItem(cr);
-            }
-        } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-        }
     }*/
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
