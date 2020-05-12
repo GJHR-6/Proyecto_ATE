@@ -108,11 +108,6 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/modificar_on.png"))); // NOI18N
         jButton2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/modificar_on.png"))); // NOI18N
         jButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/modificar_on.png"))); // NOI18N
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton2MouseExited(evt);
-            }
-        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -219,7 +214,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
         } else { //en caso contrario realizara la opcion de modificar
             String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString();
-            agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this); //this para mandar como parametro el internal para trabajarlo en el agregar
+            agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
             forma.setVisible(true); //mostrar ventana agregar_tareas
         }
@@ -271,10 +266,6 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
    
     }//GEN-LAST:event_jTable1MouseClicked
-
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
         // TODO add your handling code here:

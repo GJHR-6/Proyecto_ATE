@@ -31,11 +31,12 @@ public class agregar_tareas extends javax.swing.JFrame {
     int pos;
     int accion;
 
-    public agregar_tareas(DefaultTableModel tb, String iden, int accion, internal_tareas x) {
+    public agregar_tareas(DefaultTableModel tb, String iden, int accion, internal_tareas x, usuario user) {
         initComponents();
         tbmodelo = tb;
         ident = iden;
         internal = x;
+        this.user=user;
         this.accion = accion;
         for (int i = 0; i <= tbmodelo.getRowCount() - 1; i++) {
             if (tbmodelo.getValueAt(i, 0).toString().equalsIgnoreCase(iden)) { //
@@ -43,6 +44,8 @@ public class agregar_tareas extends javax.swing.JFrame {
             }
         }
         this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
+        this.jComboBox1.setSelectedItem(tbmodelo.getValueAt(pos, 3).toString());
+       
         pos = Integer.parseInt(iden);
         // JOptionPane.showMessageDialog(null, pos);
     }
@@ -363,6 +366,7 @@ public class agregar_tareas extends javax.swing.JFrame {
         // TODO add your handling code here:
         /*this.jComboBox2.removeAllItems();
         llenar_combo();*/
+        llenar_combo();
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
