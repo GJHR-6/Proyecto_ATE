@@ -39,12 +39,15 @@ public final class agregar_tareas extends javax.swing.JFrame{
         this.user=user;
         this.accion = accion;
         for (int i = 0; i <=tbmodelo.getRowCount()-1; i++) {
-            if (tbmodelo.getValueAt(i, 2).toString().equalsIgnoreCase(ident)) { 
-                pos = Integer.valueOf(tbmodelo.getValueAt(i, 0).toString()); 
+            if (tbmodelo.getValueAt(i, 0).toString().equalsIgnoreCase(ident)) { 
+                pos = i; 
             }
         }
-        //this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
-              
+        this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
+        this.jComboBox1.setSelectedItem(tbmodelo.getValueAt(pos, 3).toString());
+       
+        pos = Integer.parseInt(iden);
+        // JOptionPane.showMessageDialog(null, pos);           
     }
 
     @SuppressWarnings("unchecked")
@@ -359,7 +362,9 @@ public final class agregar_tareas extends javax.swing.JFrame{
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
-
+   // TODO add your handling code here:
+        /*this.jComboBox2.removeAllItems();
+        llenar_combo();*/
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
