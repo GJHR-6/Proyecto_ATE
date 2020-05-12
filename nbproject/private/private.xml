@@ -3,12 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/Principal.java</file>
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/agregar_tareas.java</file>
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_man_user2.java</file>
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_man_adm3.java</file>
             <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_organigrama.java</file>
+=======
+            <file>file:/C:/Users/guill/OneDrive/Documentos/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
+            <file>file:/C:/Users/guill/OneDrive/Documentos/GitHub/Proyecto_ATE/src/Frame/login.java</file>
+            <file>file:/C:/Users/guill/OneDrive/Documentos/GitHub/Proyecto_ATE/src/Frame/internal_man_adm3.java</file>
+            <file>file:/C:/Users/guill/OneDrive/Documentos/GitHub/Proyecto_ATE/src/Frame/Principal.java</file>
+            <file>file:/C:/Users/guill/OneDrive/Documentos/GitHub/Proyecto_ATE/src/Frame/agregar_tareas.java</file>
+>>>>>>> a1b8f58ab03b0fc3018a5e8ae6917dfa8100598f
         </group>
     </open-files>
 </project-private>
