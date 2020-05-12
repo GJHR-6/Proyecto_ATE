@@ -204,6 +204,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), 1, this, user); //this para mandar como parametro el internal para trabajarlo en el agregar
         forma.setLocationRelativeTo(null);
         forma.setVisible(true);
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -213,7 +214,11 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         if (pos == -1) {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
         } else { //en caso contrario realizara la opcion de modificar
+<<<<<<< HEAD
             String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString();
+=======
+            String identificador = this.jTable1.getModel().getValueAt(pos, 2).toString();
+>>>>>>> c66bb0fe9603b5bc0e1910c63f6e8b1ce80fb153
             agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
             forma.setVisible(true); //mostrar ventana agregar_tareas
@@ -241,10 +246,14 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         //Al abrir la ventana se llena la tabla con las tareas que el usuario ha ingresado
         llenarTabla();
+        this.jTable1.setAutoCreateRowSorter(true);
+        //for(int i=0;i<=jTable1.getRowCount();i++){
+        
+        //}
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
