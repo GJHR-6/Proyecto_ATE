@@ -3,6 +3,7 @@ package Frame;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.usuario;
 
 public class mini_agregar_carrera extends javax.swing.JFrame {
 
@@ -12,11 +13,12 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
         initComponents();
     }
     DefaultTableModel tbmodelo;
-
-    public mini_agregar_carrera(DefaultTableModel tb, internal_man_adm2 i) {
+    usuario user;
+    public mini_agregar_carrera(DefaultTableModel tb, internal_man_adm2 i,usuario user) {
         initComponents();
         tbmodelo = tb;
         internal = i;
+        this.user=user;
     }
 
     @SuppressWarnings("unchecked")
@@ -96,9 +98,9 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //agregar nueva carrera
+        //Botón agregar nueva carrera
         String carre = this.jTextField1.getText().toString();
-        if(this.jTextField1.getText().equals(""))
+        if(this.jTextField1.getText().equals("")) //Si el administrador no ha ingresado el nombre de la carrera
         {
             JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la carrera");
         }
@@ -108,7 +110,8 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
             PreparedStatement st = internal.con.prepareStatement("Insert into carrera(nomb_carrera) values(?)");
             st.setString(1, carre);
             st.execute();
-
+            internal.llenar_combo();
+            internal.llenarTabla();
             this.dispose();
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());

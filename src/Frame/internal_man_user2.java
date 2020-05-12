@@ -30,7 +30,6 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
         }
     }
-
     public void cerrar() {
         try {
             con.close();
@@ -52,7 +51,9 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
+        setForeground(new java.awt.Color(255, 255, 255));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -87,11 +88,11 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 130, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/comenzar.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_asignatura.png"))); // NOI18N
         jButton2.setBorder(null);
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/comenzar_on.png"))); // NOI18N
-        jButton2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/comenzar_on.png"))); // NOI18N
-        jButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/comenzar_on.png"))); // NOI18N
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_asignatura_on.png"))); // NOI18N
+        jButton2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_asignatura_on.png"))); // NOI18N
+        jButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_asignatura_on.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -137,6 +138,7 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Abrir mini_agregar_nota
         agg_asignatura_periodo form = new agg_asignatura_periodo((DefaultTableModel) jTable1.getModel(), this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);// muestra el frame de agregar asignatura al periodo
@@ -147,14 +149,17 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //empezar periodo
+        //Eliminar clase
          int s = this.jTable1.getSelectedRow();
-       /* if (s == -1) {
-            // si no se selecciono nada en la tabla s=-1, entonces no hara nada el boton
-        }*/  //en caso contrario realizara la opcion de eliminar
-            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-            int pos = Integer.parseInt(this.jTable1.getValueAt(s, 0).toString());
-            try {
+         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+         int pos = Integer.parseInt(this.jTable1.getValueAt(s, 0).toString());
+         if (s == -1) {
+            // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
+           }
+         else
+         {
+            {
+                try {
                 PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_periodo=" + pos + "");
 
                 st.execute();
@@ -163,8 +168,8 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
 
             } catch (Exception x) {
                 JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-            
-        }
+                    }  
+        }}
     }//GEN-LAST:event_jButton2ActionPerformed
     public ResultSet result;
 

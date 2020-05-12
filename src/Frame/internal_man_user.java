@@ -6,7 +6,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.text.html.CSS;
 
 public class internal_man_user extends javax.swing.JInternalFrame {
-usuario user;
     public internal_man_user(usuario user) {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
@@ -14,7 +13,7 @@ usuario user;
     }
     Principal printmp;
     JDesktopPane dpst;
-
+    usuario user;
     public internal_man_user(JDesktopPane dps, Principal prin, internal_man_user2 frm1, internal_man_user3 frm2, usuario user) {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal

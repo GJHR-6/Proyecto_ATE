@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
-/**
- *
- * @author guill
- */
 public class clases {
     public int  id_clase;
     public String nomb_clase;
@@ -16,7 +8,15 @@ public class clases {
     public int requisito2;
     public int requisito3;
     public int id_carrera;
+     public carrera Carrera;
+    
+      public carrera getCarrera() {
+        return Carrera;
+    }
 
+    public void setCarrera(carrera Carrera) {
+        this.Carrera = Carrera;
+    }
     public int getId_clase() {
         return id_clase;
     }
@@ -63,5 +63,8 @@ public class clases {
 
     public void setId_carrera(int id_carrera) {
         this.id_carrera = id_carrera;
+    }
+    public clases(){
+        
     }
 }
