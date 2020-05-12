@@ -40,10 +40,10 @@ public final class agregar_tareas extends javax.swing.JFrame{
         this.accion = accion;
         for (int i = 0; i <=tbmodelo.getRowCount()-1; i++) {
             if (tbmodelo.getValueAt(i, 2).toString().equalsIgnoreCase(ident)) { 
-                pos = i; 
+                pos = Integer.valueOf(tbmodelo.getValueAt(i, 0).toString()); 
             }
         }
-        this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
+        //this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
               
     }
 
@@ -334,7 +334,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
             case 2:
                 
                 try {
-                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + tarea.getNomb_asig() + "',desc_asig='" + tarea.getDesc_asig() + "',importancia='" + tarea.getImportancia() + "',puntaje=" + tarea.getPuntaje() + ",fecha_entrega='" + tarea.getFecha_entrega() + "' where asig_id=" + pos + "");
+                    PreparedStatement st = internal.con.prepareStatement("update asignaciones set nomb_asig='" + tarea.getNomb_asig() + "',desc_asig='" + tarea.getDesc_asig() + "',importancia='" + tarea.getImportancia() + "',puntaje=" + tarea.getPuntaje() + ",fecha_entrega='" + tarea.getFecha_entrega() + "' where asig_id=" + ident + "");
 
                     st.execute();
 

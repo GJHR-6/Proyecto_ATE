@@ -1,4 +1,5 @@
 package Frame;
+
 import modelo.asignaciones;
 import modelo.usuario;
 import java.sql.Connection;
@@ -51,6 +52,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     }
 
     DefaultTableModel model;
+    asignaciones asig = new asignaciones();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -209,7 +211,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), 1, this, user); //this para mandar como parametro el internal para trabajarlo en el agregar
         forma.setLocationRelativeTo(null);
         forma.setVisible(true);
-     
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -220,7 +222,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
         } else { //en caso contrario realizara la opcion de modificar
             String identificador = this.jTable1.getModel().getValueAt(pos, 2).toString();
-            agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
+            agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this, user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
             forma.setVisible(true); //mostrar ventana agregar_tareas
         }
@@ -247,34 +249,33 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         //Al abrir la ventana se llena la tabla con las tareas que el usuario ha ingresado
         llenarTabla();
         this.jTable1.setAutoCreateRowSorter(true);
         //for(int i=0;i<=jTable1.getRowCount();i++){
-        
+
         //}
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Botón agregar nota final
         //Aquí se abre la ventana min_agregar_nota
-       int pos = this.jTable1.getSelectedRow();
+        int pos = this.jTable1.getSelectedRow();
         if (pos == -1) {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
-        }
-        else
-        {
-        String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString(); //pos=la fila seleccionada, el identificador =fila seleccionada, columna 0
-        mini_agregar_nota forma1 = new mini_agregar_nota((DefaultTableModel) jTable1.getModel(),identificador, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
-        forma1.setLocationRelativeTo(null);
-        forma1.setVisible(true);
+        } else {
+            asig.setAsig_id(Integer.valueOf(jTable1.getModel().getValueAt(pos, 0).toString()));
+           // String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString(); //pos=la fila seleccionada, el identificador =fila seleccionada, columna 0
+            mini_agregar_nota forma1 = new mini_agregar_nota((DefaultTableModel) jTable1.getModel(), Integer.toString(asig.getAsig_id()), this, user); //this para mandar como parametro el internal para trabajarlo en el agregar
+            forma1.setLocationRelativeTo(null);
+            forma1.setVisible(true);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-   
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
@@ -290,16 +291,17 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton5MouseExited
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-     cerrar();//cierre de la base de datos.
+        cerrar();//cierre de la base de datos.
     }//GEN-LAST:event_formInternalFrameClosed
-   //Aquí se llena la tabla
+    //Aquí se llena la tabla
     public ResultSet result; //con el result obtiene la tabla de la bd
     public Statement s;
+
     public void llenarTabla() {
         model.setRowCount(0);
         try {
 
-            PreparedStatement at = con.prepareStatement("select asig_id,nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,notaF from asignaciones where id_usuario ='" + user.getId_user() + "'"); //manda el codigo al pergamino
+            PreparedStatement at = con.prepareStatement("select asig_id,nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,notaF from asignaciones where id_usuario ='" + user.getId_user() + "' order by fecha_entrega asc"); //manda el codigo al pergamino
             result = at.executeQuery(); //ejecutar el query
             while (result.next()) //llena la bd con la tabla del result
             {
