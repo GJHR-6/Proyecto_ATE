@@ -43,6 +43,8 @@ public class agregar_tareas extends javax.swing.JFrame {
             }
         }
         this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
+        this.jComboBox1.setSelectedItem(tbmodelo.getValueAt(pos, 3).toString());
+       
         pos = Integer.parseInt(iden);
         // JOptionPane.showMessageDialog(null, pos);
     }
@@ -363,6 +365,7 @@ public class agregar_tareas extends javax.swing.JFrame {
         // TODO add your handling code here:
         /*this.jComboBox2.removeAllItems();
         llenar_combo();*/
+        llenar_combo();
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
