@@ -1,5 +1,5 @@
 package Frame;
-
+import modelo.carrera;
 import modelo.usuario;
 import java.awt.Font;
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class Registro extends javax.swing.JFrame {
     }
 
     usuario u;//objeto de tipo usuario
-
+carrera c;
     public void buscaruser(String usr) {
         u = new usuario(); //damos un espacio en memoria
         try {
@@ -77,7 +77,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<carrera>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -221,15 +221,13 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 408, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jpingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,7 +248,7 @@ public class Registro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Botón registrar
         //Enviar parametro usuario "Admin" a frame principal y abrir frame principal
-        if (jTextField1.getText().equals("Admin")) {
+      /*  if (jTextField1.getText().equals("Admin")) {
             Principal form = new Principal(u);
             form.setVisible(true);
             this.dispose();
@@ -261,10 +259,14 @@ public class Registro extends javax.swing.JFrame {
             Principal form = new Principal(u);
             form.setVisible(true);
             this.dispose();
-        }
+        }*/
         //REGISTRARSE
-//        String usu = this.jTextField1.getText();
-//        String contra = (this.);
+          if((this.jTextField1.getText().equals("")) || (this.jPasswordField1.getText().toString()=="") || this.jPasswordField2.getText()=="" || this.jComboBox1.getItemAt(0)==null)
+        {
+            JOptionPane.showMessageDialog(null, "Debe introducir todos los datos");
+        }
+        else
+        {
         String confir = this.jPasswordField2.getText().toString();
         usuario UserNuevo = new usuario();
         
@@ -273,7 +275,8 @@ public class Registro extends javax.swing.JFrame {
         UserNuevo.setNomb_user(jTextField1.getText());
         
         buscaruser(jTextField1.getText());
-        if (u.getNomb_user() == null) {
+        if (u.getNomb_user() == null && UserNuevo.getNomb_user()!="") 
+        {
             if (UserNuevo.getPassword().equals(confir)) {
                 try {
                     PreparedStatement st = con.prepareStatement("Insert into usuario(nomb_user,password,nomb_carrera,esadmin,id_carrera) values ('" + UserNuevo.getNomb_user() + "','" + UserNuevo.getPassword() + "','" + UserNuevo.getCarrera().getNomb_carrera() + "','" + false + "'," + UserNuevo.getCarrera().getId_carrera() + ")");
@@ -286,18 +289,22 @@ public class Registro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
                 }
                 this.dispose();
-            } else {
+            } 
+            else {
                 JOptionPane.showMessageDialog(null, "Las contraseñas no son iguales");
-            }
-        } else {
+                this.jPasswordField1.setText("");
+                this.jPasswordField2.setText("");
+                 }
+        } 
+        else {
             JOptionPane.showMessageDialog(null, "El nombre de usuario ya existe, ingrese otro");
             this.jTextField1.setText("");
             this.jPasswordField1.setText("");
             this.jPasswordField2.setText("");
-        }
+             }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
     private void jLabel7MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseMoved
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
     }//GEN-LAST:event_jLabel7MouseMoved
@@ -321,7 +328,8 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-
+    this.jComboBox1.removeAllItems();
+    llenar_combo();
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -329,8 +337,8 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // 
-        llenar_combo();
+      // this.jComboBox1.addItem("Seleccione carrera"); <-esto da error
+       // llenar_combo();
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
@@ -382,11 +390,6 @@ public class Registro extends javax.swing.JFrame {
         }
     }
 
-    /*
-  select *from usuario u inner join carrera c on u.id_carrera=c.id_carrera
-  select usuario as a, carrera as c, clases as c, asignaciones as as where a.id_carrera=c.id_carrera and e.id_empleado=f.id_empleado and f.id_factura=d.id_factura
-group by departamento
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

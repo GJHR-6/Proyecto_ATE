@@ -164,9 +164,10 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         {
             String clas = (this.jComboBox1.getSelectedItem().toString());
         try {
-            PreparedStatement at = internal.con.prepareStatement("insert into clases_periodo(nomb_clase,id_usuario) values(?,?)"); //manda el codigo al pergamino
+            PreparedStatement at = internal.con.prepareStatement("insert into clases_periodo(nomb_clase,id_usuario,nomb_user) values(?,?,?)"); //manda el codigo al pergamino
             at.setString(1, clas);
-               at.setString(2, Integer.toString(user.getId_user()));
+            at.setString(2, Integer.toString(user.getId_user()));
+            at.setString(3, user.getNomb_user());
             at.execute();
             internal.llenarTabla();
         } catch (Exception x) {

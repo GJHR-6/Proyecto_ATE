@@ -251,6 +251,8 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
             PreparedStatement st = con.prepareStatement("update usuario set password='" + 1234 + "' where nomb_user='" + us + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Contraseña de usuario modificada");
+            this.jComboBox1.removeAllItems();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }  
@@ -259,16 +261,26 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Cambiar a administrador
+        
         String us = this.jComboBox1.getSelectedItem().toString();
+        if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
+        }
+        else
+        {
         try {
             PreparedStatement st = con.prepareStatement("update usuario set esadmin='" + true + "' where nomb_user='" + us + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Usuario modificado a administrador");
+            this.jComboBox1.removeAllItems();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    }
+    
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
 
     }//GEN-LAST:event_jComboBox1ItemStateChanged
@@ -328,18 +340,28 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //Botón eliminar
         String us = this.jComboBox1.getSelectedItem().toString();
+        if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
+        }
+        else
+        {
+         
+        //u.setNomb_user(this.jComboBox1.getSelectedItem().toString());
         try {
-            PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
+             PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
+          // PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_usuario='" + u.getId_user() + "' ");
+            //st = con.prepareStatement("delete from clases_periodo where id_usuario='" +u.getId_user() + "'");
             st.execute();
             JOptionPane.showMessageDialog(null, "Usuario eliminado");
             this.jComboBox1.removeAllItems();
-           // this.jComboBox1.setSelectedIndex(0);
-            llenar_combo();
+            this.jComboBox1.addItem("Seleccione usuario");
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
+  
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked

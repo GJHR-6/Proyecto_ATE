@@ -163,11 +163,11 @@ public class internal_tareas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "nombre asignación", "Descripción", "Importancia", "Puntaje", "fecha de entrega", "nota final"
+                "id", "nombre asignación", "Descripción", "Importancia", "Puntaje", "fecha de entrega", "nota final"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -181,16 +181,18 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(120);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(120);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(280);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(280);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(2);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(120);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(120);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(280);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(280);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(80);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 750, 500));
@@ -252,27 +254,16 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // agregar nota f
-        int s = this.jTable1.getSelectedRow(); //devuelve el numero de la fila que se seleccionó
-        if (s == -1) {
-            // si no se selecciono nada en la tabla s=-1, entonces no hara nada el boton
-        } else { //en caso contrario realizara la opcion de agregar nota
-            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-            int pos = Integer.parseInt(model.getValueAt(s, 0).toString()); //el getvalueat devuelve es una variable de tipo value, entonces lo convertimos a string para convertirlo luego a int
-
-            double nf = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese su nota final").toString()); //mensaje donde el usuario puede ingresar algo
-            if (nf > Double.parseDouble(model.getValueAt(s, 4).toString()) || nf < 0) {
-                JOptionPane.showMessageDialog(null, "Su nota final no puede ser mayor al puntaje");
-            } else {
-                try {
-                    PreparedStatement st = con.prepareStatement("update asignaciones set notaF=" + nf + " where asig_id=" + pos + "");
-                    st.execute();
-                    JOptionPane.showMessageDialog(null, "Su nota fue ingresada correctamente");
-                    llenarTabla();
-
-                } catch (Exception x) {
-                    JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-                }
-            }
+       int pos = this.jTable1.getSelectedRow();
+        if (pos == -1) {
+            // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
+        }
+        else
+        {
+        String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString();
+        mini_agregar_nota forma1 = new mini_agregar_nota((DefaultTableModel) jTable1.getModel(),identificador, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
+        forma1.setLocationRelativeTo(null);
+        forma1.setVisible(true);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -306,11 +297,11 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         try {
 
-            PreparedStatement at = con.prepareStatement("select nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,notaF from asignaciones where id_usuario ='" + user.getId_user() + "'"); //manda el codigo al pergamino
+            PreparedStatement at = con.prepareStatement("select asig_id,nomb_asig,desc_asig,importancia,puntaje,fecha_entrega,notaF from asignaciones where id_usuario ='" + user.getId_user() + "'"); //manda el codigo al pergamino
             result = at.executeQuery(); //ejecutar el query
             while (result.next()) //llena la bd con la tabla del result
             {
-                model.addRow(new Object[]{result.getString("nomb_asig"), result.getString("desc_asig"), result.getString("importancia"), result.getDouble("puntaje"), result.getString("fecha_entrega"), result.getDouble("notaF")});
+                model.addRow(new Object[]{result.getInt("asig_id"), result.getString("nomb_asig"), result.getString("desc_asig"), result.getString("importancia"), result.getDouble("puntaje"), result.getString("fecha_entrega"), result.getDouble("notaF")});
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
