@@ -214,11 +214,8 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         if (pos == -1) {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
         } else { //en caso contrario realizara la opcion de modificar
-<<<<<<< HEAD
+
             String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString();
-=======
-            String identificador = this.jTable1.getModel().getValueAt(pos, 2).toString();
->>>>>>> c66bb0fe9603b5bc0e1910c63f6e8b1ce80fb153
             agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
             forma.setVisible(true); //mostrar ventana agregar_tareas

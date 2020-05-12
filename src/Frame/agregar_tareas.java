@@ -31,11 +31,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
     int pos=0;
     int accion;
 
-<<<<<<< HEAD
-    public agregar_tareas(DefaultTableModel tb, String iden, int accion, internal_tareas x, usuario user) {
-=======
     public agregar_tareas(DefaultTableModel tb, String iden, int accion, internal_tareas x,usuario user) {
->>>>>>> c66bb0fe9603b5bc0e1910c63f6e8b1ce80fb153
         initComponents();
         tbmodelo = tb; 
         ident = iden;  
@@ -43,19 +39,15 @@ public final class agregar_tareas extends javax.swing.JFrame{
         this.user=user;
         this.accion = accion;
         for (int i = 0; i <=tbmodelo.getRowCount()-1; i++) {
-            if (tbmodelo.getValueAt(i, 2).toString().equalsIgnoreCase(ident)) { 
+            if (tbmodelo.getValueAt(i, 0).toString().equalsIgnoreCase(ident)) { 
                 pos = i; 
             }
         }
         this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
-<<<<<<< HEAD
         this.jComboBox1.setSelectedItem(tbmodelo.getValueAt(pos, 3).toString());
        
         pos = Integer.parseInt(iden);
-        // JOptionPane.showMessageDialog(null, pos);
-=======
-              
->>>>>>> c66bb0fe9603b5bc0e1910c63f6e8b1ce80fb153
+        // JOptionPane.showMessageDialog(null, pos);           
     }
 
     @SuppressWarnings("unchecked")
@@ -370,14 +362,9 @@ public final class agregar_tareas extends javax.swing.JFrame{
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
-<<<<<<< HEAD
-        // TODO add your handling code here:
+   // TODO add your handling code here:
         /*this.jComboBox2.removeAllItems();
         llenar_combo();*/
-        llenar_combo();
-=======
-
->>>>>>> c66bb0fe9603b5bc0e1910c63f6e8b1ce80fb153
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
