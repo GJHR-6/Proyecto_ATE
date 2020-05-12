@@ -374,7 +374,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
     public ResultSet result;
     public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos en la parte de clases_periodo las cuales insertamos en agg_asignatura_user2
         try {
-            PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='"+user.getId_user()+"'");
+            PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
             result = at.executeQuery();
             //internal.llenarTabla();
             while (result.next()) //llena la bd con la tabla del result
