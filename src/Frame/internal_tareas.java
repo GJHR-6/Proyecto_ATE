@@ -247,15 +247,16 @@ public class internal_tareas extends javax.swing.JInternalFrame {
                 PreparedStatement st = con.prepareStatement("delete from asignaciones where asig_id=" + pos + ""); //Si en la bd asig_id = pos (lo cúal debe ser igual al asig_id) entonces se procede a eliminar
 
                 st.execute();
-
+                
                 llenarTabla();
-
+                modd=0;
             } catch (Exception x) {
                 JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
             }
         }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    int modd=1;
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         //Al abrir la ventana se llena la tabla con las tareas que el usuario ha ingresado
         llenarTabla();
@@ -296,7 +297,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     //Aquí se llena la tabla
     public ResultSet result; //con el result obtiene la tabla de la bd
     public Statement s;
-    ArrayList<asignaciones> asigna =  new ArrayList();
+    ArrayList<asignaciones> asigna;
     public void llenarTabla(){
         model.setRowCount(0);
         try {
@@ -312,21 +313,26 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         }
         colores_tabla r= new colores_tabla();
         this.jTable1.setDefaultRenderer(Object.class,r);
+
+       if(model.getRowCount()!=0){
+           System.out.println("si se ejecuta");
         try {
             ordenar_tabla();
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(rootPane, "error");
         }
-            
+       }    
     }
     public void ordenar_tabla() throws ParseException{
+        
+        asigna =  new ArrayList();
         Calendar c= new GregorianCalendar();
         String dia = Integer.toString(c.get(Calendar.DATE));// obtiene el dia actual
         String mes = Integer.toString(c.get(Calendar.MONTH)+1);// obtiene el mes actual
         String annio = Integer.toString(c.get(Calendar.YEAR));// obtiene el año actual
         String hoy=annio+"-"+mes+"-"+dia;
         SimpleDateFormat formato= new SimpleDateFormat("yyyy-MM-dd");// formatos para fecha
-        Date fechahoy = null; //variables fecha
+        Date fechahoy = null; //variable fecha
         try {
             fechahoy=formato.parse(hoy);  //convierte la fecha de hoy en formato fecha
         } catch (ParseException ex) {
@@ -334,6 +340,17 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         }
         asignaciones tmp=new asignaciones();
         int i=0;
+        //validacion si hay tareas ya pasadas de fecha al inicio o al final para no correr el ordenar
+        if((-1==formato.parse(this.jTable1.getModel().getValueAt(0, 5).toString()).compareTo(fechahoy)&&
+                -1==formato.parse(this.jTable1.getModel().getValueAt(this.jTable1.getModel().getRowCount()-1, 5).toString()).compareTo(fechahoy))){
+            return;
+        }
+        //validacion si el boton eliminar, si la ultima tarea esta pasada de fecha y si la variable bandera modd se cumplen, no corre el ordenar
+        if(-1==formato.parse(this.jTable1.getModel().getValueAt(this.jTable1.getModel().getRowCount()-1, 5).toString()).compareTo(fechahoy)&&modd==0){
+            modd=1;
+            return;
+        }
+        modd=1;
         while(-1==formato.parse(this.jTable1.getModel().getValueAt(i, 5).toString()).compareTo(fechahoy)){
             //agregamos las columnas a una variable temporal y la pasamos a un arraylist
             tmp.asig_id=Integer.parseInt(this.jTable1.getModel().getValueAt(i, 0).toString());
@@ -352,6 +369,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             if(i==this.jTable1.getModel().getRowCount()-1){
             i++;  }
             }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
