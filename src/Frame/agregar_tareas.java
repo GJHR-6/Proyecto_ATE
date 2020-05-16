@@ -156,7 +156,6 @@ public final class agregar_tareas extends javax.swing.JFrame{
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, -1));
 
         jComboBox3.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
         jComboBox3.setToolTipText("Mes");
         jComboBox3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -176,7 +175,6 @@ public final class agregar_tareas extends javax.swing.JFrame{
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 110, 30));
 
         jComboBox4.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día" }));
         jComboBox4.setToolTipText("Día");
         jComboBox4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -278,20 +276,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
-    //Llenar jCombobox3 con los meses
-        jComboBox3.removeAllItems();
-        jComboBox3.addItem("Enero");
-        jComboBox3.addItem("Febrero");
-        jComboBox3.addItem("Marzo");
-        jComboBox3.addItem("Abril");
-        jComboBox3.addItem("Mayo");
-        jComboBox3.addItem("Junio");
-        jComboBox3.addItem("Julio");
-        jComboBox3.addItem("Agosto");
-        jComboBox3.addItem("Septiembre");
-        jComboBox3.addItem("Octubre");
-        jComboBox3.addItem("Noviembre");
-        jComboBox3.addItem("Diciembre");
+    
 
     }//GEN-LAST:event_jComboBox3MouseClicked
     int año = f.get(Calendar.YEAR);
@@ -306,7 +291,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
         asignaciones tarea= new asignaciones();
         ResultSet resul = null;
           
-                        int mes = (this.jComboBox3.getSelectedIndex() + 1);
+                        int mes = (this.jComboBox3.getSelectedIndex()+1);
                         int dia = (this.jComboBox4.getSelectedIndex() + 1);
                         tarea.setNomb_asig((String)jComboBox2.getSelectedItem());
                         tarea.setDesc_asig(jTextField1.getText());
@@ -358,10 +343,21 @@ public final class agregar_tareas extends javax.swing.JFrame{
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //al abrir la ventana se llenará el jComboBox2 con las clases
-        //if(accion ==1){
-        //llenar_combo();    
-        //}
-        
+        llenar_combo();
+        //Llenar jCombobox3 con los meses
+        jComboBox3.removeAllItems();
+        jComboBox3.addItem("Enero");
+        jComboBox3.addItem("Febrero");
+        jComboBox3.addItem("Marzo");
+        jComboBox3.addItem("Abril");
+        jComboBox3.addItem("Mayo");
+        jComboBox3.addItem("Junio");
+        jComboBox3.addItem("Julio");
+        jComboBox3.addItem("Agosto");
+        jComboBox3.addItem("Septiembre");
+        jComboBox3.addItem("Octubre");
+        jComboBox3.addItem("Noviembre");
+        jComboBox3.addItem("Diciembre");
     }//GEN-LAST:event_formWindowOpened
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked

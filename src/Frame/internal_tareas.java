@@ -14,7 +14,16 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableCellRenderer; //para cambiar los colores de las filas
+import modelo.colores_tabla;
 
 public class internal_tareas extends javax.swing.JInternalFrame {
 
@@ -221,8 +230,9 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             agregar_tareas forma = new agregar_tareas((DefaultTableModel) jTable1.getModel(), identificador, 2, this,user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma.setLocationRelativeTo(null);
             forma.setVisible(true); //mostrar ventana agregar_tareas
+            
         }
-
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -237,22 +247,21 @@ public class internal_tareas extends javax.swing.JInternalFrame {
                 PreparedStatement st = con.prepareStatement("delete from asignaciones where asig_id=" + pos + ""); //Si en la bd asig_id = pos (lo cúal debe ser igual al asig_id) entonces se procede a eliminar
 
                 st.execute();
-
+                
                 llenarTabla();
-
+                modd=0;
             } catch (Exception x) {
                 JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
             }
         }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    int modd=1;
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         //Al abrir la ventana se llena la tabla con las tareas que el usuario ha ingresado
         llenarTabla();
         this.jTable1.setAutoCreateRowSorter(true);
-        //for(int i=0;i<=jTable1.getRowCount();i++){
-
-        //}
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -289,8 +298,8 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     //Aquí se llena la tabla
     public ResultSet result; //con el result obtiene la tabla de la bd
     public Statement s;
-
-    public void llenarTabla() {
+    ArrayList<asignaciones> asigna;
+    public void llenarTabla(){
         model.setRowCount(0);
         try {
 
@@ -303,8 +312,66 @@ public class internal_tareas extends javax.swing.JInternalFrame {
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
-    }
+        colores_tabla r= new colores_tabla();
+        this.jTable1.setDefaultRenderer(Object.class,r);
 
+       if(model.getRowCount()!=0){
+           System.out.println("si se ejecuta");
+        try {
+            ordenar_tabla();
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(rootPane, "error");
+        }
+       }    
+    }
+    public void ordenar_tabla() throws ParseException{
+        
+        asigna =  new ArrayList();
+        Calendar c= new GregorianCalendar();
+        String dia = Integer.toString(c.get(Calendar.DATE));// obtiene el dia actual
+        String mes = Integer.toString(c.get(Calendar.MONTH)+1);// obtiene el mes actual
+        String annio = Integer.toString(c.get(Calendar.YEAR));// obtiene el año actual
+        String hoy=annio+"-"+mes+"-"+dia;
+        SimpleDateFormat formato= new SimpleDateFormat("yyyy-MM-dd");// formatos para fecha
+        Date fechahoy = null; //variable fecha
+        try {
+            fechahoy=formato.parse(hoy);  //convierte la fecha de hoy en formato fecha
+        } catch (ParseException ex) {
+            Logger.getLogger(colores_tabla.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        asignaciones tmp=new asignaciones();
+        int i=0;
+        //validacion si hay tareas ya pasadas de fecha al inicio o al final para no correr el ordenar
+        if((-1==formato.parse(this.jTable1.getModel().getValueAt(0, 5).toString()).compareTo(fechahoy)&&
+                -1==formato.parse(this.jTable1.getModel().getValueAt(this.jTable1.getModel().getRowCount()-1, 5).toString()).compareTo(fechahoy))){
+            return;
+        }
+        //validacion si el boton eliminar, si la ultima tarea esta pasada de fecha y si la variable bandera modd se cumplen, no corre el ordenar
+        if(-1==formato.parse(this.jTable1.getModel().getValueAt(this.jTable1.getModel().getRowCount()-1, 5).toString()).compareTo(fechahoy)&&modd==0){
+            modd=1;
+            return;
+        }
+        modd=1;
+        while(-1==formato.parse(this.jTable1.getModel().getValueAt(i, 5).toString()).compareTo(fechahoy)){
+            //agregamos las columnas a una variable temporal y la pasamos a un arraylist
+            tmp.asig_id=Integer.parseInt(this.jTable1.getModel().getValueAt(i, 0).toString());
+            tmp.nomb_asig=(this.jTable1.getModel().getValueAt(i, 1).toString());
+            tmp.desc_asig=(this.jTable1.getModel().getValueAt(i, 2).toString());
+            tmp.importancia=(this.jTable1.getModel().getValueAt(i, 3).toString());
+            tmp.puntaje=Double.parseDouble(this.jTable1.getModel().getValueAt(i, 4).toString()); 
+            tmp.fecha_entrega=this.jTable1.getModel().getValueAt(i, 5).toString();
+            tmp.notaF=Double.parseDouble(this.jTable1.getModel().getValueAt(i, 6).toString());
+            asigna.add(i, tmp);
+            if(-1==formato.parse(asigna.get(i).fecha_entrega).compareTo(fechahoy)){// verificamos que la fila sea la que tenga la fecha anterior a la actual
+               model.addRow(new Object[]{asigna.get(i).asig_id,asigna.get(i).nomb_asig,asigna.get(i).desc_asig,
+                            asigna.get(i).importancia,asigna.get(i).puntaje,asigna.get(i).fecha_entrega,asigna.get(i).notaF});//agregamos esa fila a la ultima posicion del model
+               model.removeRow(0);//quitamos esa fila de la tabla, que estaria en la primera posicion
+            }
+            if(i==this.jTable1.getModel().getRowCount()-1){
+            i++;  }
+            }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
