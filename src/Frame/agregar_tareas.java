@@ -45,7 +45,9 @@ public final class agregar_tareas extends javax.swing.JFrame{
         }
         this.jTextField1.setText(tbmodelo.getValueAt(pos, 2).toString()); //esto es para que obtener el dato de la tabla en la posicion (descripcion)
         this.jComboBox1.setSelectedItem(tbmodelo.getValueAt(pos, 3).toString());
-       
+        //this.jComboBox2.removeAllItems();
+        this.jComboBox2.addItem(tbmodelo.getValueAt(pos, 1).toString());
+        
         pos = Integer.parseInt(iden);
         // JOptionPane.showMessageDialog(null, pos);           
     }
@@ -220,7 +222,9 @@ public final class agregar_tareas extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 604, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +358,10 @@ public final class agregar_tareas extends javax.swing.JFrame{
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //al abrir la ventana se llenará el jComboBox2 con las clases
-        llenar_combo();
+        //if(accion ==1){
+        //llenar_combo();    
+        //}
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
@@ -363,8 +370,8 @@ public final class agregar_tareas extends javax.swing.JFrame{
 
     private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
    // TODO add your handling code here:
-        /*this.jComboBox2.removeAllItems();
-        llenar_combo();*/
+        this.jComboBox2.removeAllItems();
+        llenar_combo();
     }//GEN-LAST:event_jComboBox2MouseClicked
 
     private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked

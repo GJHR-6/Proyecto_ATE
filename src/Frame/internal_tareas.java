@@ -258,6 +258,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Botón agregar nota final
         //Aquí se abre la ventana min_agregar_nota
+      
         int pos = this.jTable1.getSelectedRow();
         if (pos == -1) {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
