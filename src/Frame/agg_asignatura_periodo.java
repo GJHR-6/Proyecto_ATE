@@ -9,18 +9,19 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class agg_asignatura_periodo extends javax.swing.JFrame {
+public class agg_asignatura_periodo extends javax.swing.JDialog {
 
     internal_man_user2 internal;
     public agg_asignatura_periodo() {
         initComponents();
-
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
     }
 
     DefaultTableModel tbmodelo;// para mandar a llamar el modelo de la tabla en la que se va a agregar la asignatura
    usuario user;
     public agg_asignatura_periodo(DefaultTableModel tb, internal_man_user2 in,usuario user) { 
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb;
         internal = in;
         this.user=user;
@@ -32,12 +33,12 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

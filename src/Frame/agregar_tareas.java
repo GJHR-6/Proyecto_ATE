@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 import modelo.asignaciones;
 
-public final class agregar_tareas extends javax.swing.JFrame{
+public final class agregar_tareas extends javax.swing.JDialog {
 
     internal_tareas internal; //para llamar lo que está en la clase internal (en la que está la conexión)
     Calendar f = new GregorianCalendar();
@@ -17,11 +17,14 @@ public final class agregar_tareas extends javax.swing.JFrame{
 
     public agregar_tareas() {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
+        
     }
     DefaultTableModel tbmodelo;// para mandar a llamar el modelo de la tabla
 
     public agregar_tareas(DefaultTableModel tb, int accion, internal_tareas i, usuario user){
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         this.user = user;
         tbmodelo = tb;
         this.accion = accion;
@@ -33,6 +36,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
 
     public agregar_tareas(DefaultTableModel tb, String iden, int accion, internal_tareas x,usuario user) {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb; 
         ident = iden;  
         internal = x;
@@ -72,7 +76,7 @@ public final class agregar_tareas extends javax.swing.JFrame{
         jSpinner1 = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
         setResizable(false);
@@ -218,11 +222,9 @@ public final class agregar_tareas extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 604, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
