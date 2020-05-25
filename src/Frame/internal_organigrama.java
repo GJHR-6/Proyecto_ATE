@@ -16,7 +16,7 @@ import modelo.clases;
 import modelo.notas;
 import modelo.usuario;
 import javax.swing.Box;
-
+import modelo.clases_periodo;
 
 public class internal_organigrama extends javax.swing.JInternalFrame {
 
@@ -148,6 +148,25 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
         return false;
     }
 
+    public Color compararsihaynota(clases l, ArrayList<notas> dab) {
+        String v = "#B6B6B6";
+        for (notas i : dab) {
+            if (l.getId_clase() == i.getId_clase()) {
+                if (i.estado.equals("APB")) {
+                    v = "#6CF06C";
+                } else if (i.estado.equals("RPB") ) {
+                    v = "#FF7272";
+                } else if (i.estado.equals("CRS") ) {
+                    v = "#8D8DFC";
+                } else {
+                    v = "#B6B6B6";
+                }
+            }
+        }
+        Color color = Color.decode(v);
+        return color;
+    }
+
     public String show_requisitos(clases cl, ArrayList<clases> ele) {
         String req1 = "", req2 = ", ", req3 = ", ";
         for (clases i : ele) {
@@ -167,13 +186,34 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
         }
         return "Esta clase depende de: " + req1 + req2 + req3;
     }
-    
+
     public void dibujar_en_tabla() {
         JPanel cont = new JPanel();
         ArrayList<clases> listado = getclase();
 
         ArrayList<Integer> dibujadas = new ArrayList<>();
-//crear la lista aqui c:
+        ArrayList<notas> lis_clases_notas = new ArrayList<>();
+        String query = "Select * from notas where id_usuario='" + u.getId_user() + "'";
+        notas nota ;
+        try {
+            ResultSet result;
+            conectar();
+            PreparedStatement at = con.prepareStatement(query);
+            result = at.executeQuery(); //ejecutar el query
+            while (result.next()) {
+                nota = new notas();
+                nota.setId_clase(result.getInt("id_clase"));
+                nota.setNota(result.getInt("notaF"));
+                nota.setId_nota(result.getInt("id_nota"));
+                nota.setId_user(result.getInt("id_usuario"));
+                nota.setEstado(result.getString("estado"));
+                lis_clases_notas.add(nota);
+            }
+
+            cerrar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         for (clases cl : listado) {
             //clases generales
 
@@ -183,26 +223,10 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
                 cont.setBackground(Color.WHITE);
                 JButton antenas5g = new JButton(cl.getNomb_clase());
 //comparacion si ya está pasada o no 
-               /* clases_periodo notas;
-                String query = "select * from  notas where id_user='" + cl.getId_clase() + "'";
-                notas = new notas();
-                try {
-                    ResultSet result;
-                    conectar();
-                    PreparedStatement at = con.prepareStatement(query);
-                    result = at.executeQuery(); //ejecutar el query
-                    while (result.next()) {
-                        notas = new notas();
-                        notas.setId_clase(result.getInt("id_clase"));
-                        notas.setNota(result.getInt("nota"));
-                        notas.setId_nota(result.getInt("id_nota"));
-                        notas.setId_user(result.getInt("id_user"));
-                        notas.setEstado(result.getString("estado"));
-                    }
-                    cerrar();
-                } catch (Exception x) {
-                    System.out.println(x.getMessage());
-                }*/
+                antenas5g.setContentAreaFilled(false);
+                antenas5g.setBorderPainted(true);
+                antenas5g.setOpaque(true);
+                antenas5g.setBackground(compararsihaynota(cl, lis_clases_notas));
 //crear un arraylist que contengan las notas.
                 antenas5g.addActionListener(new ActionListener() {
                     @Override
@@ -235,6 +259,10 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
                     cont.setSize(10, 10);
                     cont.setBackground(Color.WHITE);
                     JButton antenas5g = new JButton(cl.getNomb_clase());
+                    antenas5g.setContentAreaFilled(false);
+                    antenas5g.setBorderPainted(true);
+                    antenas5g.setOpaque(true);
+                    antenas5g.setBackground(compararsihaynota(cl, lis_clases_notas));
                     antenas5g.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) { //Accion del boton en requisitos.

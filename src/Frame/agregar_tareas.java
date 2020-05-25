@@ -198,6 +198,7 @@ public final class agregar_tareas extends javax.swing.JDialog {
         jLabel7.setText("Fecha:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         jSpinner1.setToolTipText("Valor");
         jSpinner1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

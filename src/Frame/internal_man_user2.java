@@ -172,9 +172,11 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
            }
          else
          {
+             clases cla=new clases();           
+             cla.setId_clase(Integer.parseInt(model.getValueAt(s,0).toString()));
             {
                 try {
-                PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_periodo=" + pos + "");
+                PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_clase=" + pos + "");
 
                 st.execute();
 
@@ -183,7 +185,17 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
             } catch (Exception x) {
                 JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
                     }  
-        }}
+        }
+               try {
+            PreparedStatement at = con.prepareStatement("update notas set estado ='NCS' where id_clase=?"); //manda el codigo al pergamino
+            at.setInt(1, cla.getId_clase());
+            at.execute();
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+    }
+         }
+         
+           
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -203,12 +215,13 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
   
                     st.execute();
                  }
-                 else
+                 else if(clases_pe.get(i).getnotaF()<65&&clases_pe.get(i).getnotaF()>=0)
                  {
                     PreparedStatement st = con.prepareStatement("update notas set notaF='"+clases_pe.get(i).getnotaF()+"', estado='RPB' where id_usuario= '"+user.getId_user()+"' and nomb_clase='"+clases_pe.get(i).getNomb_clase()+"' ");
   
                     st.execute();
                  }
+                 
              }
                 } catch (Exception x) {
                     JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
@@ -246,11 +259,11 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
     public void llenarTabla() { //aquí llenamos la tabla con las clases que seleccionó el usuario del jComboBox
         model.setRowCount(0);
         try {
-            PreparedStatement at = con.prepareStatement("Select id_periodo,nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
+            PreparedStatement at = con.prepareStatement("Select id_clase, id_periodo,nomb_clase from clases_periodo where id_usuario ='" + user.getId_user() + "'");
             result = at.executeQuery();
             while (result.next()) //llena la bd con la tabla del result
             {
-                model.addRow(new Object[]{result.getInt("id_periodo"),result.getString("nomb_clase")});
+                model.addRow(new Object[]{result.getInt("id_clase"),result.getString("nomb_clase")});
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
@@ -275,7 +288,7 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
                 c_p.setnotaF(result.getInt("nota"));
                 c_p.setNomb_clase(result.getString("nomb_asig"));
                 clases_p.add(c_p);
-
+                
             }
             
         } catch (Exception x) {

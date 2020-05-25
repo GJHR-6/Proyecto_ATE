@@ -9,7 +9,7 @@ public class clases {
     public int requisito3;
     public int id_carrera;
      public carrera Carrera;
-    
+
       public carrera getCarrera() {
         return Carrera;
     }

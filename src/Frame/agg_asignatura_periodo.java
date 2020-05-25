@@ -1,41 +1,62 @@
 package Frame;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import modelo.clases_periodo;
 import modelo.usuario;
 import modelo.clases;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import modelo.notas;
 
 public class agg_asignatura_periodo extends javax.swing.JFrame {
 
     internal_man_user2 internal;
+
     public agg_asignatura_periodo() {
         initComponents();
 
     }
 
     DefaultTableModel tbmodelo;// para mandar a llamar el modelo de la tabla en la que se va a agregar la asignatura
-   usuario user;
-   clases cl;
-    public agg_asignatura_periodo(DefaultTableModel tb, internal_man_user2 in,usuario user) { 
+    usuario user;
+    clases cl;
+
+    public agg_asignatura_periodo(DefaultTableModel tb, internal_man_user2 in, usuario user) {
         initComponents();
         tbmodelo = tb;
         internal = in;
-        this.user=user;
-  
+        this.user = user;
+
+    }String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
+    Connection con;
+    void conectar() {
+        try {
+            con = DriverManager.getConnection(connectionURL);
+            System.out.println("conectado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage().toString());
+        }
     }
- 
+    public void cerrar() {
+        try {
+            con.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage().toString());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -120,11 +141,12 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
     //Esto se hizo para buscar en la bd si el usuario ya ingreso una clase, para así evitar que vuelva a ingresar la misma clase
     clases_periodo cp;
     public ResultSet result;
+
     public void buscarnc(String no) {
         cp = new clases_periodo(); //damos un espacio en memoria
         try {
 
-            PreparedStatement at = internal.con.prepareStatement("Select * from clases_periodo where nomb_clase = '" + no+ "' and id_usuario="+user.getId_user()+" "); //manda el codigo a la db
+            PreparedStatement at = internal.con.prepareStatement("Select * from clases_periodo where nomb_clase = '" + no + "' and id_usuario=" + user.getId_user() + " "); //manda el codigo a la db
             result = at.executeQuery(); //ejecutar el query
             while (result.getFetchSize() >= 1) { //Se mira si se encontro un resultado en la db
                 result.next();//hace que seleccione la primera fila. 
@@ -135,15 +157,15 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
 
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-    //Al darle click al botón de escoger clase se llenará el combobox con las clases de su carrera para agregarlas
-    this.jComboBox1.removeAllItems(); 
-    llenar_combo();
+        //Al darle click al botón de escoger clase se llenará el combobox con las clases de su carrera para agregarlas
+        this.jComboBox1.removeAllItems();
+        llenar_combo();
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -158,51 +180,70 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         //Botón agregar
         //Aquí insertamos las clases que seleccionamos del jComboBox a una nueva tabla en la base de datos llamada "clases_periodo"     
         buscarnc(this.jComboBox1.getSelectedItem().toString());
-       
-        if(this.jComboBox1.getItemAt(0).equals("Seleccione clase"))
+
+        if (((clases) this.jComboBox1.getSelectedItem()).getId_clase() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar la clase"); //Verificamos que el usuario haya seleccionado la clase del jcombobox
+        } else {
+            if (cp.getNomb_clase() != null) //Si la clase ya fue ingresada por el usuario no se le permitirá volver a agregarla a la tabla
             {
-               JOptionPane.showMessageDialog(null,"Debe seleccionar la clase"); //Verificamos que el usuario haya seleccionado la clase del jcombobox
-            }
-        else
-        {
-            if(cp.getNomb_clase()!=null) //Si la clase ya fue ingresada por el usuario no se le permitirá volver a agregarla a la tabla
+                JOptionPane.showMessageDialog(null, "Esa clase ya fue ingresada");
+            } else //Si el usuario ya seleccionó una nueva clase para ingresar
             {
-            JOptionPane.showMessageDialog(null, "Esa clase ya fue ingresada"); 
-            }
-            else //Si el usuario ya seleccionó una nueva clase para ingresar
-            {         
                 //String clas = (this.jComboBox1.getSelectedItem().toString()); 
-            clases cla=new clases(); 
-            cla.setNomb_clase((jComboBox1.getSelectedItem().toString()));
-             
-        try {
-            PreparedStatement at = internal.con.prepareStatement("insert into clases_periodo(nomb_clase,id_usuario,nomb_user) values(?,?,?)"); //manda el codigo al pergamino
-            at.setString(1, cla.getNomb_clase());
-            at.setString(2, Integer.toString(user.getId_user()));
-            at.setString(3, user.getNomb_user());
-          
-            at.execute();
-            internal.llenarTabla();
-        } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+                clases cla = new clases();
+                cla = (clases) jComboBox1.getSelectedItem();
+
+                try {
+                    PreparedStatement at = internal.con.prepareStatement("insert into clases_periodo(id_clase,nomb_clase,id_usuario,nomb_user) values(?,?,?,?)"); //manda el codigo al pergamino
+                    at.setInt(1, cla.getId_clase());
+                    at.setString(2, cla.getNomb_clase());
+                    at.setString(3, Integer.toString(user.getId_user()));
+                    at.setString(4, user.getNomb_user());
+
+                    at.execute();
+                    internal.llenarTabla();
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
     }//GEN-LAST:event_jButton1ActionPerformed
-    try {
-            PreparedStatement at = internal.con.prepareStatement("insert into notas(nomb_clase,id_usuario,estado) values(?,?,?)"); //manda el codigo al pergamino
-            at.setString(1, cla.getNomb_clase());
-            at.setString(2, Integer.toString(user.getId_user()));
-            at.setString(3, "CRS");
-            at.execute();
-        } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-    }    
-    
+                try {
+                    PreparedStatement at = internal.con.prepareStatement("insert into notas(id_clase,nomb_clase,id_usuario,estado) values(?,?,?,?)"); //manda el codigo al pergamino
+                    at.setInt(1, cla.getId_clase());
+                    at.setString(2, cla.getNomb_clase());
+                    at.setString(3, Integer.toString(user.getId_user()));
+                    at.setString(4, "CRS");
+                    at.execute();
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+                }
+
             }
         }
+        this.dispose();
+
+    }
+    
+     public boolean filtrarcombo(clases l, ArrayList<notas> dab) {
          
+        for (notas i : dab) {
+            if (l.getId_clase() == i.getId_clase()) {
+                if (i.estado.equals("APB")) {
+                    return true;
+                } else if (i.estado.equals("RPB") ) {
+                    return false;
+                } else if (i.estado.equals("CRS") ) {
+                    return true;
+                } else if(i.estado.equals("NCS")) {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Al abrir la ventana
-        this.jComboBox1.addItem("Seleccione clase"); //Esto estará en el combobox al abrir la ventana
+        clases cla = new clases();
+        cla.setId_clase(-1);
+        this.jComboBox1.addItem(cla); //Esto estará en el combobox al abrir la ventana
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
@@ -236,7 +277,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             }
         });
     }
- 
+
     /*public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases where id_carrera='"+user.getId_carrera()+"' ");
@@ -250,17 +291,43 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
         }
     }*/
-
+  
+    
     public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+        ArrayList<notas> lis_clases_notas = new ArrayList<>();
+        String query = "Select * from notas where id_usuario='" + user.getId_user() + "'";
+        notas nota ;
         try {
-            PreparedStatement at = internal.con.prepareStatement("Select id_clase, nomb_clase from clases where id_carrera='"+user.getId_carrera()+"'");
+            ResultSet result;
+            conectar();
+            PreparedStatement at = con.prepareStatement(query);
+            result = at.executeQuery(); //ejecutar el query
+            while (result.next()) {
+                nota = new notas();
+                nota.setId_clase(result.getInt("id_clase"));
+                nota.setNota(result.getInt("notaF"));
+                nota.setId_nota(result.getInt("id_nota"));
+                nota.setId_user(result.getInt("id_usuario"));
+                nota.setEstado(result.getString("estado"));
+                lis_clases_notas.add(nota);
+            }
+
+            cerrar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            PreparedStatement at = internal.con.prepareStatement("Select id_clase, nomb_clase from clases where id_carrera='" + user.getId_carrera() + "'");
             result = at.executeQuery();
             clases c;
             while (result.next()) {
-                c= new clases();
+                c = new clases();
                 c.setId_clase(result.getInt("id_clase"));
                 c.setNomb_clase(result.getString("nomb_clase"));
-                jComboBox1.addItem(c.getNomb_clase());
+                if(!filtrarcombo(c,lis_clases_notas)){
+                jComboBox1.addItem(c);    
+                }
+                
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
@@ -270,7 +337,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<clases> jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
