@@ -1,6 +1,6 @@
-
 package Frame;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -15,9 +15,8 @@ import javax.swing.JPanel;
 import modelo.clases;
 import modelo.notas;
 import modelo.usuario;
-import java.util.Collection;
-import java.util.Arrays;
 import javax.swing.Box;
+
 
 public class internal_organigrama extends javax.swing.JInternalFrame {
 
@@ -149,31 +148,32 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
         return false;
     }
 
-    public String show_requisitos(clases cl,ArrayList<clases> ele){
-        String req1="",req2=", ",req3=", "; 
-        for (clases i:ele) {
-           if(cl.getRequisito()==i.getId_clase()){
-               req1+=i.getNomb_clase();
-           }
+    public String show_requisitos(clases cl, ArrayList<clases> ele) {
+        String req1 = "", req2 = ", ", req3 = ", ";
+        for (clases i : ele) {
+            if (cl.getRequisito() == i.getId_clase()) {
+                req1 += i.getNomb_clase();
+            }
         }
-        for (clases i:ele) {
-           if(cl.getRequisito2()==i.getId_clase()){
-               req2+=i.getNomb_clase();
-           }
+        for (clases i : ele) {
+            if (cl.getRequisito2() == i.getId_clase()) {
+                req2 += i.getNomb_clase();
+            }
         }
-        for (clases i:ele) {
-           if(cl.getRequisito3()==i.getId_clase()){
-               req3+=i.getNomb_clase();
-           }
+        for (clases i : ele) {
+            if (cl.getRequisito3() == i.getId_clase()) {
+                req3 += i.getNomb_clase();
+            }
         }
-      return "Esta clase depende de: "+req1+req2+req3;
+        return "Esta clase depende de: " + req1 + req2 + req3;
     }
+    
     public void dibujar_en_tabla() {
         JPanel cont = new JPanel();
         ArrayList<clases> listado = getclase();
 
         ArrayList<Integer> dibujadas = new ArrayList<>();
-
+//crear la lista aqui c:
         for (clases cl : listado) {
             //clases generales
 
@@ -181,15 +181,38 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
                 cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
                 cont.setSize(10, 10);
                 JButton antenas5g = new JButton(cl.getNomb_clase());
+//comparacion si ya está pasada o no 
+               /* clases_periodo notas;
+                String query = "select * from  notas where id_user='" + cl.getId_clase() + "'";
+                notas = new notas();
+                try {
+                    ResultSet result;
+                    conectar();
+                    PreparedStatement at = con.prepareStatement(query);
+                    result = at.executeQuery(); //ejecutar el query
+                    while (result.next()) {
+                        notas = new notas();
+                        notas.setId_clase(result.getInt("id_clase"));
+                        notas.setNota(result.getInt("nota"));
+                        notas.setId_nota(result.getInt("id_nota"));
+                        notas.setId_user(result.getInt("id_user"));
+                        notas.setEstado(result.getString("estado"));
+                    }
+                    cerrar();
+                } catch (Exception x) {
+                    System.out.println(x.getMessage());
+                }*/
+//crear un arraylist que contengan las notas.
                 antenas5g.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                       JOptionPane.showMessageDialog(rootPane, show_requisitos(cl, listado));
-                        
+                        JOptionPane.showMessageDialog(rootPane, show_requisitos(cl, listado));
+
                     }
                 });
+                //antes de esta linea cambiar el color del boton.
                 cont.add(antenas5g);
-             
+
                 cont.add(Box.createVerticalStrut(20));
                 Jpanel0.add(cont);
                 dibujadas.add(cl.id_clase);
@@ -210,14 +233,14 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
                     cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
                     cont.setSize(10, 10);
                     JButton antenas5g = new JButton(cl.getNomb_clase());
-                antenas5g.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                       JOptionPane.showMessageDialog(rootPane, show_requisitos(cl, listado));
-                        
-                    }
-                });
-                cont.add(antenas5g);
+                    antenas5g.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) { //Accion del boton en requisitos.
+                            JOptionPane.showMessageDialog(rootPane, show_requisitos(cl, listado));
+
+                        }
+                    });
+                    cont.add(antenas5g);
                     cont.add(Box.createVerticalStrut(20));
                     Jpanel0.add(cont);
 
@@ -266,7 +289,7 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
         Jpanel0.setLayout(Jpanel0Layout);
         Jpanel0Layout.setHorizontalGroup(
             Jpanel0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1035, Short.MAX_VALUE)
+            .addGap(0, 1047, Short.MAX_VALUE)
         );
         Jpanel0Layout.setVerticalGroup(
             Jpanel0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,13 +302,11 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(base_org, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE))
+            .addComponent(base_org)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(base_org, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+            .addComponent(base_org)
         );
 
         pack();

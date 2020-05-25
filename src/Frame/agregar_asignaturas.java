@@ -8,10 +8,11 @@ import modelo.carrera;
 import modelo.usuario;
 import modelo.clases;
 
-public class agregar_asignaturas extends javax.swing.JFrame {
+public class agregar_asignaturas extends javax.swing.JDialog {
 
     public agregar_asignaturas() {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
     }
     usuario user;
     internal_man_adm2 internal;// para mandar a llamar lo que esta en el internal mantenimiento del admin 
@@ -19,6 +20,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
 
     public agregar_asignaturas(DefaultTableModel tb, int accion, internal_man_adm2 i,usuario user) {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb;
         this.accion = accion;
         internal = i;
@@ -27,6 +29,7 @@ public class agregar_asignaturas extends javax.swing.JFrame {
 
     public agregar_asignaturas(DefaultTableModel tb, String iden, int accion, internal_man_adm2 x) {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb;
         ident = iden;
         internal = x;
@@ -52,17 +55,17 @@ public class agregar_asignaturas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<String>();
-        jComboBox3 = new javax.swing.JComboBox<String>();
-        jComboBox4 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
