@@ -180,6 +180,7 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
             if (cl.requisito == 0 && cl.requisito2 == 0 && cl.requisito3 == 0) {
                 cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
                 cont.setSize(10, 10);
+                cont.setBackground(Color.WHITE);
                 JButton antenas5g = new JButton(cl.getNomb_clase());
 //comparacion si ya está pasada o no 
                /* clases_periodo notas;
@@ -232,6 +233,7 @@ public class internal_organigrama extends javax.swing.JInternalFrame {
                     tetris.add(cl.getId_clase());
                     cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
                     cont.setSize(10, 10);
+                    cont.setBackground(Color.WHITE);
                     JButton antenas5g = new JButton(cl.getNomb_clase());
                     antenas5g.addActionListener(new ActionListener() {
                         @Override
