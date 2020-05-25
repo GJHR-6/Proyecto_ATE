@@ -5,17 +5,19 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.usuario;
 
-public class mini_agregar_carrera extends javax.swing.JFrame {
+public class mini_agregar_carrera extends javax.swing.JDialog {
 
     internal_man_adm2 internal;
 
     public mini_agregar_carrera() {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
     }
     DefaultTableModel tbmodelo;
     usuario user;
     public mini_agregar_carrera(DefaultTableModel tb, internal_man_adm2 i,usuario user) {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb;
         internal = i;
         this.user=user;
@@ -32,7 +34,7 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
@@ -72,12 +74,13 @@ public class mini_agregar_carrera extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 220, 20));
 
+        jTextField1.setBorder(null);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 230, 30));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 220, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

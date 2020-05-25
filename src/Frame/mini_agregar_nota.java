@@ -8,15 +8,17 @@ import javax.swing.table.DefaultTableModel;
 import modelo.usuario;
 import modelo.asignaciones;
 
-public class mini_agregar_nota extends javax.swing.JFrame {
+public class mini_agregar_nota extends javax.swing.JDialog {
 
     public mini_agregar_nota() {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
     }
     internal_tareas internal; //para llamar lo que está en la clase internal (en la que está la conexión)
     usuario user;
     public mini_agregar_nota(DefaultTableModel tb, internal_tareas i, usuario user) {// aqui se pedirian las cosas para agregar la nota final
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         this.user = user;
         tbmodelo = tb;
         internal = i;
@@ -27,6 +29,7 @@ public class mini_agregar_nota extends javax.swing.JFrame {
 
     public mini_agregar_nota(DefaultTableModel tb, String iden, internal_tareas x,usuario user) {
         initComponents();
+        this.setModal(true);//hace que esta ventana sea prioridad e inhabilita las demas hasta que se cierre
         tbmodelo = tb;
         ident = iden;
         internal = x;
@@ -50,7 +53,7 @@ public class mini_agregar_nota extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
@@ -92,7 +95,8 @@ public class mini_agregar_nota extends javax.swing.JFrame {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 220, 20));
 
         jTextField1.setToolTipText("Nota final");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 230, 30));
+        jTextField1.setBorder(null);
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 220, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
