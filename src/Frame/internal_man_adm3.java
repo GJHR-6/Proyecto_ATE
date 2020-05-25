@@ -48,7 +48,6 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -119,28 +118,6 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 100, 40));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar.png"))); // NOI18N
-        jButton3.setBorder(null);
-        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_on.png"))); // NOI18N
-        jButton3.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_on.png"))); // NOI18N
-        jButton3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eliminar_on.png"))); // NOI18N
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
-            }
-        });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jButton3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jButton3PropertyChange(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, 100, 40));
 
         jLabel3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 102, 51));
@@ -337,36 +314,8 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
         //llenar_combo();
         this.jComboBox1.addItem("Seleccione usuario");
     }//GEN-LAST:event_formInternalFrameOpened
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //Botón eliminar
-        String us = this.jComboBox1.getSelectedItem().toString();
-        if(this.jComboBox1.getItemAt(0).equals("Seleccione usuario"))
-        {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario");
-        }
-        else
-        {
-         
-        //u.setNomb_user(this.jComboBox1.getSelectedItem().toString());
-        try {
-             PreparedStatement st = con.prepareStatement("delete from usuario where nomb_user='" + us + "'");
-          // PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_usuario='" + u.getId_user() + "' ");
-            //st = con.prepareStatement("delete from clases_periodo where id_usuario='" +u.getId_user() + "'");
-            st.execute();
-            JOptionPane.showMessageDialog(null, "Usuario eliminado");
-            this.jComboBox1.removeAllItems();
-            this.jComboBox1.addItem("Seleccione usuario");
-        } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-    }
+    
   
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
-
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // 
 
@@ -384,10 +333,6 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formInternalFrameActivated
-
-    private void jButton3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jButton3PropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3PropertyChange
     //Llenar el jComboBox1 con los nombres de los usuarios
     public void llenar_combo() {
         try {
@@ -402,7 +347,6 @@ public class internal_man_adm3 extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;

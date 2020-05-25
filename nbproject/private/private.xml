@@ -3,14 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/modelo/asignaciones.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/Principal.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/agregar_tareas.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/modelo/colores_tabla.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_man_user2.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_man_adm3.java</file>
-            <file>file:/C:/Users/cyrax/Documents/GitHub/Proyecto_ATE/src/Frame/internal_organigrama.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/Registro.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/modelo/usuario.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/agg_asignatura_periodo.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/agregar_tareas.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/mini_agregar_nota.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/internal_tareas.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/Frame/internal_man_user2.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/modelo/carrera.java</file>
+            <file>file:/C:/Users/OD653/Documents/GitHub/Proyecto_ATE/src/modelo/clases.java</file>
         </group>
     </open-files>
 </project-private>

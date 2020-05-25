@@ -170,7 +170,7 @@ public class internal_tareas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "nombre asignación", "Descripción", "Importancia", "Puntaje", "fecha de entrega", "nota final"
+                "id", "nombre clase", "Descripción", "Importancia", "Puntaje", "fecha de entrega", "nota final"
             }
         ) {
             Class[] types = new Class [] {
@@ -273,7 +273,6 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             // si no se selecciono nada en la tabla pos=-1, entonces no hara nada el boton
         } else {
             asig.setAsig_id(Integer.valueOf(jTable1.getModel().getValueAt(pos, 0).toString()));
-           // String identificador = this.jTable1.getModel().getValueAt(pos, 0).toString(); //pos=la fila seleccionada, el identificador =fila seleccionada, columna 0
             mini_agregar_nota forma1 = new mini_agregar_nota((DefaultTableModel) jTable1.getModel(), Integer.toString(asig.getAsig_id()), this, user); //this para mandar como parametro el internal para trabajarlo en el agregar
             forma1.setLocationRelativeTo(null);
             forma1.setVisible(true);
@@ -372,6 +371,8 @@ public class internal_tareas extends javax.swing.JInternalFrame {
             }
         
     }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.usuario;
+import modelo.clases_periodo;
+import modelo.clases;
+import modelo.notas;
 
 public class internal_man_user2 extends javax.swing.JInternalFrame {
 
@@ -19,6 +23,8 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Esconder la barra de titulo del internal
     }
     usuario user;
+    clases_periodo clases_periodo;
+    clases clases;
     String connectionURL = "jdbc:sqlserver://dbpoov1.mssql.somee.com:1433;databaseName=dbpoov1;user=gjhr;password=PkG*UaP*q3aWrij;";
     Connection con;
 
@@ -105,6 +111,11 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/finalizarp_on.png"))); // NOI18N
         jButton3.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/finalizarp_on.png"))); // NOI18N
         jButton3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/finalizarp_on.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 130, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -171,6 +182,62 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
                     }  
         }}
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Botón finalizar periodo
+       
+        int dialogo= JOptionPane.showConfirmDialog(null, "Está seguro que desea finalizar su periodo? , Se borrarán sus clases y asignaciones del programa", "Advertencia", JOptionPane.YES_NO_OPTION);
+        if(dialogo== JOptionPane.YES_OPTION)
+        {
+            try {
+      
+             ArrayList<clases_periodo> clases_pe =getnotas();
+             for(int i=0; i<clases_pe.size(); i++)
+             {
+                 if(clases_pe.get(i).getnotaF()>=65)
+                 {
+                    PreparedStatement st = con.prepareStatement("update notas set notaF='"+clases_pe.get(i).getnotaF()+"', estado='APB' where id_usuario= '"+user.getId_user()+"' and nomb_clase='"+clases_pe.get(i).getNomb_clase()+"' ");
+  
+                    st.execute();
+                 }
+                 else
+                 {
+                    PreparedStatement st = con.prepareStatement("update notas set notaF='"+clases_pe.get(i).getnotaF()+"', estado='RPB' where id_usuario= '"+user.getId_user()+"' and nomb_clase='"+clases_pe.get(i).getNomb_clase()+"' ");
+  
+                    st.execute();
+                 }
+             }
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+                }
+   
+            
+            try {
+                PreparedStatement st = con.prepareStatement("delete from asignaciones where id_usuario= '"+user.getId_user()+"' "); 
+                st.execute();
+                llenarTabla();
+    
+            } catch (Exception x) {
+                JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+            }
+             try {
+                PreparedStatement st = con.prepareStatement("delete from clases_periodo where id_usuario= '"+user.getId_user()+"' "); 
+                st.execute();
+    
+            } catch (Exception x) {
+                JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+            }
+          llenarTabla();
+           
+        }
+        else
+        {
+           
+        }
+          
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    
     public ResultSet result;
 
     public void llenarTabla() { //aquí llenamos la tabla con las clases que seleccionó el usuario del jComboBox
@@ -188,6 +255,32 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
 
     }
 
+    clases_periodo c_p;
+     private ArrayList<clases_periodo> getnotas() {
+        
+        String query = "Select nomb_asig, sum(notaF) as nota from asignaciones where id_usuario= '" + user.getId_user() + "' group by nomb_asig";
+        c_p = new clases_periodo();
+        ArrayList<clases_periodo>  clases_p = new ArrayList();
+        try {
+            ResultSet result;
+            conectar();
+            PreparedStatement at = con.prepareStatement(query);
+            result = at.executeQuery(); //ejecutar el query
+            while (result.next()) {
+                c_p = new clases_periodo();
+                
+                c_p.setnotaF(result.getInt("nota"));
+                c_p.setNomb_clase(result.getString("nomb_asig"));
+                clases_p.add(c_p);
+
+            }
+            
+        } catch (Exception x) {
+            System.out.println(x.getMessage());
+        }
+        System.out.println(clases_p);
+        return clases_p;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

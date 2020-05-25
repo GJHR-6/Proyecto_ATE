@@ -9,6 +9,7 @@ public class usuario {
     public boolean esadmin;
     public int id_carrera;
     public carrera Carrera;
+    public clases Clases;
 
     public carrera getCarrera() {
         return Carrera;
@@ -17,7 +18,13 @@ public class usuario {
     public void setCarrera(carrera Carrera) {
         this.Carrera = Carrera;
     }
+   public carrera getClases() {
+        return Carrera;
+    }
 
+    public void setClases(clases Clases) {
+        this.Clases = Clases;
+    }
     public int getId_user() {
         return id_user;
     }

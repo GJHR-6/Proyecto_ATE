@@ -67,4 +67,8 @@ public class clases {
     public clases(){
         
     }
+     @Override
+    public String toString() {
+        return this.nomb_clase;
+    }
 }

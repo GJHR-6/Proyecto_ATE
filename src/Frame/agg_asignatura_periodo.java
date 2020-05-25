@@ -1,6 +1,7 @@
 package Frame;
 import modelo.clases_periodo;
 import modelo.usuario;
+import modelo.clases;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 public class agg_asignatura_periodo extends javax.swing.JFrame {
 
@@ -19,6 +21,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
 
     DefaultTableModel tbmodelo;// para mandar a llamar el modelo de la tabla en la que se va a agregar la asignatura
    usuario user;
+   clases cl;
     public agg_asignatura_periodo(DefaultTableModel tb, internal_man_user2 in,usuario user) { 
         initComponents();
         tbmodelo = tb;
@@ -132,6 +135,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         }
 
     }
+    
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
 
     }//GEN-LAST:event_jComboBox1ItemStateChanged
@@ -154,6 +158,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         //Botón agregar
         //Aquí insertamos las clases que seleccionamos del jComboBox a una nueva tabla en la base de datos llamada "clases_periodo"     
         buscarnc(this.jComboBox1.getSelectedItem().toString());
+       
         if(this.jComboBox1.getItemAt(0).equals("Seleccione clase"))
             {
                JOptionPane.showMessageDialog(null,"Debe seleccionar la clase"); //Verificamos que el usuario haya seleccionado la clase del jcombobox
@@ -165,20 +170,35 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Esa clase ya fue ingresada"); 
             }
             else //Si el usuario ya seleccionó una nueva clase para ingresar
-            {
-           String clas = (this.jComboBox1.getSelectedItem().toString()); 
+            {         
+                //String clas = (this.jComboBox1.getSelectedItem().toString()); 
+            clases cla=new clases(); 
+            cla.setNomb_clase((jComboBox1.getSelectedItem().toString()));
+             
         try {
             PreparedStatement at = internal.con.prepareStatement("insert into clases_periodo(nomb_clase,id_usuario,nomb_user) values(?,?,?)"); //manda el codigo al pergamino
-            at.setString(1, clas);
+            at.setString(1, cla.getNomb_clase());
             at.setString(2, Integer.toString(user.getId_user()));
             at.setString(3, user.getNomb_user());
+          
             at.execute();
             internal.llenarTabla();
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
     }//GEN-LAST:event_jButton1ActionPerformed
-    }
+    try {
+            PreparedStatement at = internal.con.prepareStatement("insert into notas(nomb_clase,id_usuario,estado) values(?,?,?)"); //manda el codigo al pergamino
+            at.setString(1, cla.getNomb_clase());
+            at.setString(2, Integer.toString(user.getId_user()));
+            at.setString(3, "CRS");
+            at.execute();
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+    }    
+    
+            }
         }
+         
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Al abrir la ventana
@@ -217,7 +237,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
         });
     }
  
-    public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos
+    /*public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases where id_carrera='"+user.getId_carrera()+"' ");
             result = at.executeQuery();
@@ -225,6 +245,22 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             while (result.next()) //llena la bd con la tabla del result
             {
                 jComboBox1.addItem(result.getString("nomb_clase"));
+            }
+        } catch (Exception x) {
+            JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
+        }
+    }*/
+
+    public void llenar_combo() { //Para llenar el jComboBox con las carreras que están en la base de datos
+        try {
+            PreparedStatement at = internal.con.prepareStatement("Select id_clase, nomb_clase from clases where id_carrera='"+user.getId_carrera()+"'");
+            result = at.executeQuery();
+            clases c;
+            while (result.next()) {
+                c= new clases();
+                c.setId_clase(result.getInt("id_clase"));
+                c.setNomb_clase(result.getString("nomb_clase"));
+                jComboBox1.addItem(c.getNomb_clase());
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
