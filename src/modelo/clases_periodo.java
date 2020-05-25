@@ -15,6 +15,15 @@ public class clases_periodo {
     public int id_usuario;
     public int id_carrera;
     public int id_clase;
+    public double notaF; 
+
+    public double getNotaF() {
+        return notaF;
+    }
+
+    public void setNotaF(double notaF) {
+        this.notaF = notaF;
+    }
 
     public int getId_periodo() {
         return id_periodo;

@@ -1,5 +1,6 @@
 package Frame;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.notas;
 import modelo.usuario;
 
 public class internal_man_user2 extends javax.swing.JInternalFrame {
@@ -142,6 +144,7 @@ public class internal_man_user2 extends javax.swing.JInternalFrame {
         agg_asignatura_periodo form = new agg_asignatura_periodo((DefaultTableModel) jTable1.getModel(), this,user);
         form.setLocationRelativeTo(null);
         form.setVisible(true);// muestra el frame de agregar asignatura al periodo
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

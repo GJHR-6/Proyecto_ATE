@@ -6,8 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.clases;
 
 public class agg_asignatura_periodo extends javax.swing.JFrame {
 
@@ -133,7 +137,11 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
 
     }
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+            
+        
 
+                
+        
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
@@ -143,7 +151,7 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -216,7 +224,6 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             }
         });
     }
- 
     public void llenar_combo() { //Para llenar el jComboBox con las clases que están en la base de datos
         try {
             PreparedStatement at = internal.con.prepareStatement("Select nomb_clase from clases where id_carrera='"+user.getId_carrera()+"' ");
@@ -224,7 +231,10 @@ public class agg_asignatura_periodo extends javax.swing.JFrame {
             //internal.llenarTabla();
             while (result.next()) //llena la bd con la tabla del result
             {
-                jComboBox1.addItem(result.getString("nomb_clase"));
+               
+                jComboBox1.addItem(result.getString("nomb_clase"));    
+                
+                
             }
         } catch (Exception x) {
             JOptionPane.showMessageDialog(null, "error" + x.getMessage().toString());
