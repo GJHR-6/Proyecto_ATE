@@ -29,3 +29,6 @@ Proyecto ATE es una aplicación diseñada para ayudar a los estudiantes a organi
 1. **Clonar el repositorio:**
    ```bash
    git clone https://github.com/GJHR-6/Proyecto_ATE.git
+Imagen 1, Picture
+Imagen 4, Picture
+Imagen 3, Picture
